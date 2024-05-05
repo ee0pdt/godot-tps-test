@@ -11,7 +11,7 @@ func _process(delta: float) -> void:
 	table_text += "[table=2][cell]Key[/cell][cell]Value[/cell]\n"
 	
 	# Add table rows
-	for i in range(0, 1):
+	for i in range(0, values.size()):
 		table_text += "[cell]%s[/cell][cell]%s[/cell]\n" % [values[i], get_meta(values[i])]
 	
 	table_text += "[/table]"
