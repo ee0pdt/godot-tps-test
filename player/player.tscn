@@ -1,0 +1,72 @@
+[gd_scene load_steps=10 format=3 uid="uid://cpdhk1p0ryx5a"]
+
+[ext_resource type="Script" path="res://player/player.gd" id="1_800hh"]
+[ext_resource type="Script" path="res://fsm/state_machine.gd" id="2_y5u12"]
+[ext_resource type="Script" path="res://player/states/player_idle.gd" id="3_ga8cy"]
+[ext_resource type="Script" path="res://player/states/player_walk.gd" id="4_te2lg"]
+[ext_resource type="Script" path="res://player/states/player_jump.gd" id="5_bnrwn"]
+[ext_resource type="Script" path="res://player/states/player_fall.gd" id="6_3fgvs"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_0y156"]
+height = 1.75
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_bwp2g"]
+radius = 0.2
+height = 1.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1gp7c"]
+height = 1.75
+
+[node name="Player" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.78191, 0)
+script = ExtResource("1_800hh")
+
+[node name="PlayerStates" type="Node" parent="."]
+script = ExtResource("2_y5u12")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="PlayerStates"]
+script = ExtResource("3_ga8cy")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="PlayerStates/Idle"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.610352, 0, 0)
+use_collision = true
+size = Vector3(2.2207, 1, 1)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="PlayerStates/Idle"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.94523, 0.210449, 0)
+use_collision = true
+size = Vector3(2.2207, 1.4209, 1)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="PlayerStates/Idle"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.38356, 0.494385, 0)
+use_collision = true
+size = Vector3(2.2207, 1.98877, 1)
+
+[node name="Walk" type="Node" parent="PlayerStates"]
+script = ExtResource("4_te2lg")
+
+[node name="Jump" type="Node" parent="PlayerStates"]
+script = ExtResource("5_bnrwn")
+
+[node name="Fall" type="Node" parent="PlayerStates"]
+script = ExtResource("6_3fgvs")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_0y156")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D2"]
+transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, -1.5246e-23, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, -0.0195807, 0.32691, -0.384874)
+mesh = SubResource("CapsuleMesh_bwp2g")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_1gp7c")
+
+[node name="CamOrigin" type="Node3D" parent="."]
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CamOrigin"]
+spring_length = 2.0
+margin = 0.5
+
+[node name="Camera3D" type="Camera3D" parent="CamOrigin/SpringArm3D"]

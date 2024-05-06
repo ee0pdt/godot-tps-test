@@ -1,11 +1,6 @@
-[gd_scene load_steps=16 format=3 uid="uid://dv3kj7ex0vmm6"]
+[gd_scene load_steps=8 format=3 uid="uid://dv3kj7ex0vmm6"]
 
-[ext_resource type="Script" path="res://player/player.gd" id="1_jon36"]
-[ext_resource type="Script" path="res://fsm/state_machine.gd" id="2_jnjgi"]
-[ext_resource type="Script" path="res://player/states/player_idle.gd" id="3_iv1cj"]
-[ext_resource type="Script" path="res://player/states/player_jump.gd" id="4_jjbhr"]
-[ext_resource type="Script" path="res://player/states/player_walk.gd" id="4_wsxh4"]
-[ext_resource type="Script" path="res://player/states/player_fall.gd" id="6_5ipq4"]
+[ext_resource type="PackedScene" uid="uid://cpdhk1p0ryx5a" path="res://player/player.tscn" id="1_ffgii"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mbeen"]
 
@@ -15,16 +10,6 @@ size = Vector2(1000, 1000)
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ik7sy"]
 data = PackedVector3Array(500, 0, 500, -500, 0, 500, 500, 0, -500, -500, 0, 500, -500, 0, -500, 500, 0, -500)
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_0y156"]
-height = 1.75
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_bwp2g"]
-radius = 0.2
-height = 1.0
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1gp7c"]
-height = 1.75
 
 [sub_resource type="Environment" id="Environment_f0shl"]
 
@@ -43,59 +28,7 @@ mesh = SubResource("PlaneMesh_02ro3")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_ik7sy")
 
-[node name="Player" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.78191, 0)
-script = ExtResource("1_jon36")
-
-[node name="PlayerStates" type="Node" parent="Player"]
-script = ExtResource("2_jnjgi")
-initial_state = NodePath("Idle")
-
-[node name="Idle" type="Node" parent="Player/PlayerStates"]
-script = ExtResource("3_iv1cj")
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Player/PlayerStates/Idle"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.610352, 0, 0)
-use_collision = true
-size = Vector3(2.2207, 1, 1)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Player/PlayerStates/Idle"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.94523, 0.210449, 0)
-use_collision = true
-size = Vector3(2.2207, 1.4209, 1)
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="Player/PlayerStates/Idle"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.38356, 0.494385, 0)
-use_collision = true
-size = Vector3(2.2207, 1.98877, 1)
-
-[node name="Walk" type="Node" parent="Player/PlayerStates"]
-script = ExtResource("4_wsxh4")
-
-[node name="Jump" type="Node" parent="Player/PlayerStates"]
-script = ExtResource("4_jjbhr")
-
-[node name="Fall" type="Node" parent="Player/PlayerStates"]
-script = ExtResource("6_5ipq4")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Player"]
-mesh = SubResource("CapsuleMesh_0y156")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Player/MeshInstance3D2"]
-transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, -1.5246e-23, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, -0.0195807, 0.32691, -0.384874)
-mesh = SubResource("CapsuleMesh_bwp2g")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
-shape = SubResource("CapsuleShape3D_1gp7c")
-
-[node name="CamOrigin" type="Node3D" parent="Player"]
-
-[node name="SpringArm3D" type="SpringArm3D" parent="Player/CamOrigin"]
-spring_length = 2.0
-margin = 0.5
-
-[node name="Camera3D" type="Camera3D" parent="Player/CamOrigin/SpringArm3D"]
+[node name="Player" parent="." instance=ExtResource("1_ffgii")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_f0shl")
