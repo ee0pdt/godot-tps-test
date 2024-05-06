@@ -43,9 +43,10 @@ func enter(_msg := {}) -> void:
 	Debug.print_value("PlayerState", "Jump")
 	player = state_machine.get_parent()
 	player.velocity.y = player.JUMP_VELOCITY
+	player.animation_tree["parameters/conditions/jump"] = true
 
 
 # Called by the state machine before changing the active state. Use this function
 # to clean up the state.
 func exit() -> void:
-	pass
+	player.animation_tree["parameters/conditions/jump"] = false

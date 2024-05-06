@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cpdhk1p0ryx5a"]
+[gd_scene load_steps=27 format=3 uid="uid://cpdhk1p0ryx5a"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_800hh"]
 [ext_resource type="Script" path="res://fsm/state_machine.gd" id="2_y5u12"]
@@ -104,7 +104,6 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id="Animation_vxyos"]
 resource_name = "Walk"
-length = 3.0
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -137,7 +136,7 @@ tracks/2/path = NodePath("Mesh/Foot_r:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 1.56667, 3),
+"times": PackedFloat32Array(0, 0.5328, 1.0323),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector3(0.121783, -0.706605, 0.184788), Vector3(0.121783, -0.706605, -0.215218), Vector3(0.121783, -0.706605, 0.184788)]
@@ -149,21 +148,28 @@ tracks/3/path = NodePath("Mesh/Foot_l:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 1.56667, 3),
+"times": PackedFloat32Array(0, 0.5328, 1.0323),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector3(-0.176197, -0.706605, -0.223774), Vector3(-0.176197, -0.706605, 0.13992), Vector3(-0.176197, -0.706605, -0.223774)]
 }
 
+[sub_resource type="Animation" id="Animation_43rcw"]
+resource_name = "Jump"
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cs7kc"]
 _data = {
 "Idle": SubResource("Animation_pcldr"),
+"Jump": SubResource("Animation_43rcw"),
 "RESET": SubResource("Animation_pnhmf"),
 "Walk": SubResource("Animation_vxyos")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_g6gg6"]
 animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bd6mn"]
+animation = &"Jump"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4fegx"]
 animation = &"Walk"
@@ -172,21 +178,44 @@ animation = &"Walk"
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_j6at0"]
+xfade_time = 0.5
 advance_mode = 2
 advance_condition = &"walk"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gb0jg"]
+xfade_time = 0.1
 advance_mode = 2
 advance_condition = &"idle"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_71nkx"]
+advance_mode = 2
+advance_condition = &"jump"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5vvpe"]
+xfade_time = 0.5
+advance_mode = 2
+advance_condition = &"idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_f6ckr"]
+advance_mode = 2
+advance_condition = &"jump"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_olipm"]
+xfade_time = 0.5
+advance_mode = 2
+advance_condition = &"walk"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_d4j5b"]
+states/End/position = Vector2(964.5, 99.3131)
 states/Idle/node = SubResource("AnimationNodeAnimation_g6gg6")
 states/Idle/position = Vector2(448.562, 100.126)
+states/Jump/node = SubResource("AnimationNodeAnimation_bd6mn")
+states/Jump/position = Vector2(557.225, -35.7225)
 states/Start/position = Vector2(208, 98.5)
 states/Walk/node = SubResource("AnimationNodeAnimation_4fegx")
 states/Walk/position = Vector2(677.05, 99.625)
-transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_5ivau"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_j6at0"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_gb0jg")]
-graph_offset = Vector2(99.2249, -16.23)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_5ivau"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_j6at0"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_gb0jg"), "Idle", "Jump", SubResource("AnimationNodeStateMachineTransition_71nkx"), "Jump", "Idle", SubResource("AnimationNodeStateMachineTransition_5vvpe"), "Walk", "Jump", SubResource("AnimationNodeStateMachineTransition_f6ckr"), "Jump", "Walk", SubResource("AnimationNodeStateMachineTransition_olipm")]
+graph_offset = Vector2(99.225, -104.723)
 
 [node name="Player" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.812197, 0)
@@ -230,12 +259,12 @@ transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, -1.5246e-23, -4.37114e-08
 mesh = SubResource("CapsuleMesh_shgaf")
 
 [node name="Foot_r" type="MeshInstance3D" parent="Mesh"]
-transform = Transform3D(1, -1.06581e-14, 4.02341e-21, -1.5246e-23, -4.37114e-08, -1, 1.06581e-14, 1, -4.37114e-08, 0.121783, -0.706605, -0.0261087)
+transform = Transform3D(1, -1.06581e-14, 4.65882e-22, 0, -4.37114e-08, -1, 1.06581e-14, 1, -4.37114e-08, 0.121783, -0.706605, -0.0261087)
 mesh = SubResource("CapsuleMesh_bwp2g")
 skeleton = NodePath("../Body")
 
 [node name="Foot_l" type="MeshInstance3D" parent="Mesh"]
-transform = Transform3D(1, -1.06581e-14, 4.02341e-21, -1.5246e-23, -4.37114e-08, -1, 1.06581e-14, 1, -4.37114e-08, -0.176197, -0.706605, -0.0261087)
+transform = Transform3D(1, -1.06581e-14, 4.65882e-22, 0, -4.37114e-08, -1, 1.06581e-14, 1, -4.37114e-08, -0.176197, -0.706605, -0.0261087)
 mesh = SubResource("CapsuleMesh_bwp2g")
 skeleton = NodePath("../Body")
 
@@ -251,6 +280,7 @@ parameters/current_length = 0.0
 parameters/current_position = 0.0
 parameters/current_delta = 0.0
 parameters/conditions/idle = false
+parameters/conditions/jump = false
 parameters/conditions/walk = false
 parameters/End/current_length = null
 parameters/End/current_position = null
@@ -258,6 +288,9 @@ parameters/End/current_delta = null
 parameters/Idle/current_length = null
 parameters/Idle/current_position = null
 parameters/Idle/current_delta = null
+parameters/Jump/current_length = null
+parameters/Jump/current_position = null
+parameters/Jump/current_delta = null
 parameters/Start/current_length = 0.0
 parameters/Start/current_position = 0.0
 parameters/Start/current_delta = 0.0
