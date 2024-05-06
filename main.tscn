@@ -1,6 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://dv3kj7ex0vmm6"]
+[gd_scene load_steps=15 format=3 uid="uid://dv3kj7ex0vmm6"]
 
-[ext_resource type="Script" path="res://player.gd" id="1_jon36"]
+[ext_resource type="Script" path="res://player/player.gd" id="1_jon36"]
+[ext_resource type="Script" path="res://fsm/state_machine.gd" id="2_jnjgi"]
+[ext_resource type="Script" path="res://player/states/player_idle.gd" id="3_iv1cj"]
+[ext_resource type="Script" path="res://player/states/player_jump.gd" id="4_jjbhr"]
+[ext_resource type="Script" path="res://player/states/player_walk.gd" id="4_wsxh4"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mbeen"]
 
@@ -50,6 +54,19 @@ shape = SubResource("ConcavePolygonShape3D_n2c53")
 [node name="Player" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.78191, 0)
 script = ExtResource("1_jon36")
+
+[node name="PlayerStates" type="Node" parent="Player"]
+script = ExtResource("2_jnjgi")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="Player/PlayerStates"]
+script = ExtResource("3_iv1cj")
+
+[node name="Walk" type="Node" parent="Player/PlayerStates"]
+script = ExtResource("4_wsxh4")
+
+[node name="Jump" type="Node" parent="Player/PlayerStates"]
+script = ExtResource("4_jjbhr")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Player"]
 mesh = SubResource("CapsuleMesh_0y156")
