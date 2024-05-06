@@ -46,9 +46,10 @@ func physics_update(_delta: float) -> void:
 func enter(_msg := {}) -> void:
 	Debug.print_value("PlayerState", "Idle")
 	player = state_machine.get_parent()
+	player.animation_tree["parameters/conditions/idle"] = true
 
 
 # Called by the state machine before changing the active state. Use this function
 # to clean up the state.
 func exit() -> void:
-	pass
+	player.animation_tree["parameters/conditions/idle"] = false

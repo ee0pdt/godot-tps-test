@@ -9,12 +9,15 @@ const MOUSE_SENSITIVITY = 0.3  # Adjust this value to change mouse sensitivity
 
 @onready var pivot: Node3D = $CamOrigin
 @onready var camera: Camera3D = $CamOrigin/SpringArm3D/Camera3D
+@onready var animation_tree: AnimationTree = $AnimationTree
+
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	animation_tree.active = true
 
 func _input(event):
 	if event is InputEventMouseMotion:

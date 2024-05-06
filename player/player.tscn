@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cpdhk1p0ryx5a"]
+[gd_scene load_steps=21 format=3 uid="uid://cpdhk1p0ryx5a"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_800hh"]
 [ext_resource type="Script" path="res://fsm/state_machine.gd" id="2_y5u12"]
@@ -7,18 +7,189 @@
 [ext_resource type="Script" path="res://player/states/player_jump.gd" id="5_bnrwn"]
 [ext_resource type="Script" path="res://player/states/player_fall.gd" id="6_3fgvs"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_0y156"]
-height = 1.75
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_bwp2g"]
-radius = 0.2
-height = 1.0
-
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1gp7c"]
 height = 1.75
 
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_0y156"]
+radius = 0.3
+height = 1.2
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_shgaf"]
+radius = 0.1
+height = 0.4
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_bwp2g"]
+radius = 0.1
+height = 0.4
+
+[sub_resource type="Animation" id="Animation_pcldr"]
+resource_name = "Idle"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mesh/Body:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.03333, 1.96667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -0.0514057, 0), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Mesh/Body:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.96667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_pnhmf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mesh/Body:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Mesh/Body:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Mesh/Foot_r:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.121783, -0.706605, -0.0261087)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Mesh/Foot_l:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.176197, -0.706605, -0.0261087)]
+}
+
+[sub_resource type="Animation" id="Animation_vxyos"]
+resource_name = "Walk"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mesh/Body:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Mesh/Body:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Mesh/Foot_r:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.56667, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.121783, -0.706605, 0.184788), Vector3(0.121783, -0.706605, -0.215218), Vector3(0.121783, -0.706605, 0.184788)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Mesh/Foot_l:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1.56667, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.176197, -0.706605, -0.223774), Vector3(-0.176197, -0.706605, 0.13992), Vector3(-0.176197, -0.706605, -0.223774)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cs7kc"]
+_data = {
+"Idle": SubResource("Animation_pcldr"),
+"RESET": SubResource("Animation_pnhmf"),
+"Walk": SubResource("Animation_vxyos")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_g6gg6"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4fegx"]
+animation = &"Walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5ivau"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_j6at0"]
+advance_mode = 2
+advance_condition = &"walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gb0jg"]
+advance_mode = 2
+advance_condition = &"idle"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_d4j5b"]
+states/Idle/node = SubResource("AnimationNodeAnimation_g6gg6")
+states/Idle/position = Vector2(448.562, 100.126)
+states/Start/position = Vector2(208, 98.5)
+states/Walk/node = SubResource("AnimationNodeAnimation_4fegx")
+states/Walk/position = Vector2(677.05, 99.625)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_5ivau"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_j6at0"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_gb0jg")]
+graph_offset = Vector2(99.2249, -16.23)
+
 [node name="Player" type="CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.78191, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.812197, 0)
 script = ExtResource("1_800hh")
 
 [node name="PlayerStates" type="Node" parent="."]
@@ -28,21 +199,6 @@ initial_state = NodePath("Idle")
 [node name="Idle" type="Node" parent="PlayerStates"]
 script = ExtResource("3_ga8cy")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="PlayerStates/Idle"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.610352, 0, 0)
-use_collision = true
-size = Vector3(2.2207, 1, 1)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="PlayerStates/Idle"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.94523, 0.210449, 0)
-use_collision = true
-size = Vector3(2.2207, 1.4209, 1)
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="PlayerStates/Idle"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.38356, 0.494385, 0)
-use_collision = true
-size = Vector3(2.2207, 1.98877, 1)
-
 [node name="Walk" type="Node" parent="PlayerStates"]
 script = ExtResource("4_te2lg")
 
@@ -51,14 +207,6 @@ script = ExtResource("5_bnrwn")
 
 [node name="Fall" type="Node" parent="PlayerStates"]
 script = ExtResource("6_3fgvs")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-mesh = SubResource("CapsuleMesh_0y156")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D2"]
-transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, -1.5246e-23, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, -0.0195807, 0.32691, -0.384874)
-mesh = SubResource("CapsuleMesh_bwp2g")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_1gp7c")
@@ -70,3 +218,49 @@ spring_length = 2.0
 margin = 0.5
 
 [node name="Camera3D" type="Camera3D" parent="CamOrigin/SpringArm3D"]
+
+[node name="Mesh" type="Node3D" parent="."]
+
+[node name="Body" type="MeshInstance3D" parent="Mesh"]
+mesh = SubResource("CapsuleMesh_0y156")
+skeleton = NodePath("../../..")
+
+[node name="Eyes" type="MeshInstance3D" parent="Mesh/Body"]
+transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, -1.5246e-23, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, -0.0195807, 0.2746, -0.283713)
+mesh = SubResource("CapsuleMesh_shgaf")
+
+[node name="Foot_r" type="MeshInstance3D" parent="Mesh"]
+transform = Transform3D(1, -1.06581e-14, 4.02341e-21, -1.5246e-23, -4.37114e-08, -1, 1.06581e-14, 1, -4.37114e-08, 0.121783, -0.706605, -0.0261087)
+mesh = SubResource("CapsuleMesh_bwp2g")
+skeleton = NodePath("../Body")
+
+[node name="Foot_l" type="MeshInstance3D" parent="Mesh"]
+transform = Transform3D(1, -1.06581e-14, 4.02341e-21, -1.5246e-23, -4.37114e-08, -1, 1.06581e-14, 1, -4.37114e-08, -0.176197, -0.706605, -0.0261087)
+mesh = SubResource("CapsuleMesh_bwp2g")
+skeleton = NodePath("../Body")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_cs7kc")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_d4j5b")
+anim_player = NodePath("../AnimationPlayer")
+parameters/current_length = 0.0
+parameters/current_position = 0.0
+parameters/current_delta = 0.0
+parameters/conditions/idle = false
+parameters/conditions/walk = false
+parameters/End/current_length = null
+parameters/End/current_position = null
+parameters/End/current_delta = null
+parameters/Idle/current_length = null
+parameters/Idle/current_position = null
+parameters/Idle/current_delta = null
+parameters/Start/current_length = 0.0
+parameters/Start/current_position = 0.0
+parameters/Start/current_delta = 0.0
+parameters/Walk/current_length = null
+parameters/Walk/current_position = null
+parameters/Walk/current_delta = null
