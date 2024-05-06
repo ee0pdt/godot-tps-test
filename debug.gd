@@ -3,7 +3,7 @@ extends Control
 @onready var debug_text_label: RichTextLabel = %DebugTextLabel
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var values: PackedStringArray = get_meta_list()
 	var table_text = ""
 	

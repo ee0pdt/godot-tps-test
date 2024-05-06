@@ -14,7 +14,7 @@ func update(_delta: float) -> void:
 
 
 # Corresponds to the `_physics_process()` callback.
-func physics_update(delta: float) -> void:
+func physics_update(_delta: float) -> void:
 	if not player.is_on_floor():
 		state_machine.transition_to("Fall")
 
