@@ -15,13 +15,14 @@ func update(_delta: float) -> void:
 
 # Corresponds to the `_physics_process()` callback.
 func physics_update(delta: float) -> void:
-	if player.is_on_floor():
+	if player.is_on_floor() and player.velocity.y <= 0:
 		state_machine.transition_to("Idle")
-		return
-		
-	player.velocity.y -= player.gravity * delta
+	elif player.velocity.y <= 0:
+		state_machine.transition_to("Fall")
+	else:
+		player.velocity.y -= player.gravity * delta
 
-	player.move_and_slide()
+		player.move_and_slide()
 
 
 # Called by the state machine upon changing the active state. The `msg` parameter
