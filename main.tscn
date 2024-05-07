@@ -29,6 +29,7 @@ mesh = SubResource("PlaneMesh_02ro3")
 shape = SubResource("ConcavePolygonShape3D_ik7sy")
 
 [node name="Player" parent="." instance=ExtResource("1_ffgii")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.30252, 0)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_f0shl")
@@ -49,6 +50,11 @@ shape = SubResource("ConcavePolygonShape3D_n2c53")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.610352, 0, 0)
+use_collision = true
+size = Vector3(2.2207, 1, 1)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.610352, 3.12558, 0)
 use_collision = true
 size = Vector3(2.2207, 1, 1)
 

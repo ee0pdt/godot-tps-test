@@ -15,6 +15,8 @@ const MOUSE_SENSITIVITY = 0.3  # Adjust this value to change mouse sensitivity
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
+var jump_count := 0
+
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	animation_tree.active = true

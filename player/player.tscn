@@ -8,7 +8,8 @@
 [ext_resource type="Script" path="res://player/states/player_fall.gd" id="6_3fgvs"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1gp7c"]
-height = 1.75
+radius = 0.326767
+height = 1.38195
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_0y156"]
 radius = 0.3
@@ -104,6 +105,7 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id="Animation_vxyos"]
 resource_name = "Walk"
+length = 0.6
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -136,7 +138,7 @@ tracks/2/path = NodePath("Mesh/Foot_r:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.5328, 1.0323),
+"times": PackedFloat32Array(0, 0.2997, 0.5994),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector3(0.121783, -0.706605, 0.184788), Vector3(0.121783, -0.706605, -0.215218), Vector3(0.121783, -0.706605, 0.184788)]
@@ -148,7 +150,7 @@ tracks/3/path = NodePath("Mesh/Foot_l:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.5328, 1.0323),
+"times": PackedFloat32Array(0, 0.2997, 0.5994),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector3(-0.176197, -0.706605, -0.223774), Vector3(-0.176197, -0.706605, 0.13992), Vector3(-0.176197, -0.706605, -0.223774)]
@@ -238,6 +240,7 @@ script = ExtResource("5_bnrwn")
 script = ExtResource("6_3fgvs")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.098711, 0)
 shape = SubResource("CapsuleShape3D_1gp7c")
 
 [node name="CamOrigin" type="Node3D" parent="."]

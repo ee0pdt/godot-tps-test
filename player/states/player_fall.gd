@@ -1,6 +1,9 @@
 extends State
 
+const COYOTE_TIME := 0.1
+
 var player : Player
+var falling_time = 0.0
 
 
 # Receives events from the `_unhandled_input()` callback.
@@ -17,8 +20,12 @@ func update(_delta: float) -> void:
 func physics_update(delta: float) -> void:
 	if player.is_on_floor():
 		state_machine.transition_to("Idle")
+	# Coyote time
+	elif Input.is_action_just_pressed("jump") and falling_time < COYOTE_TIME and player.jump_count < 1:
+		state_machine.transition_to("Jump")
 	else:
 		player.velocity.y -= player.gravity * delta
+		falling_time += delta
 
 		# Get the input direction and handle the movement/deceleration.
 		var input_dir = Input.get_vector("left", "right", "forward", "backward")
@@ -39,6 +46,7 @@ func physics_update(delta: float) -> void:
 func enter(_msg := {}) -> void:
 	Debug.print_value("PlayerState", "Fall")
 	player = state_machine.get_parent()
+	falling_time = 0.0
 
 
 # Called by the state machine before changing the active state. Use this function

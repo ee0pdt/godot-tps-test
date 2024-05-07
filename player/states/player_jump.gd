@@ -44,6 +44,7 @@ func enter(_msg := {}) -> void:
 	player = state_machine.get_parent()
 	player.velocity.y = player.JUMP_VELOCITY
 	player.animation_tree["parameters/conditions/jump"] = true
+	player.jump_count += 1
 
 
 # Called by the state machine before changing the active state. Use this function
