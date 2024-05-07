@@ -21,8 +21,8 @@ func physics_update(delta: float) -> void:
 	# Double jump
 	elif Input.is_action_just_pressed("jump") and player.jump_count < 2:
 		player.velocity.y += player.DOUBLE_JUMP_VELOCITY
-		player.animation_tree["parameters/conditions/jump"] = true
 		player.jump_count += 1
+		player.animation_tree["parameters/conditions/double_jump"] = true
 	# Leave jump state as we've started to fall
 	elif player.velocity.y <= 0:
 		state_machine.transition_to("Fall")
@@ -60,3 +60,4 @@ func enter(_msg := {}) -> void:
 # to clean up the state.
 func exit() -> void:
 	player.animation_tree["parameters/conditions/jump"] = false
+	player.animation_tree["parameters/conditions/double_jump"] = false

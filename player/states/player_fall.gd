@@ -27,7 +27,7 @@ func physics_update(delta: float) -> void:
 	# Double jump
 	elif player.jump_count > 1 and Input.is_action_just_pressed("jump") and player.jump_count < 2:
 		player.velocity.y += player.DOUBLE_JUMP_VELOCITY
-		player.animation_tree["parameters/conditions/jump"] = true
+		player.animation_tree["parameters/conditions/double_jump"] = true
 		player.jump_count += 1
 	else:
 		player.velocity.y -= player.gravity * delta

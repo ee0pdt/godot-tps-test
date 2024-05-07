@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://cpdhk1p0ryx5a"]
+[gd_scene load_steps=41 format=3 uid="uid://cpdhk1p0ryx5a"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_800hh"]
 [ext_resource type="Script" path="res://fsm/state_machine.gd" id="2_y5u12"]
@@ -259,6 +259,18 @@ tracks/7/keys = {
 "update": 0,
 "values": [Vector3(1.5708, -1.06581e-14, 0)]
 }
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Mesh:rotation")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-6.28319, 3.48787e-16, 3.48787e-16)]
+}
 
 [sub_resource type="Animation" id="Animation_vxyos"]
 resource_name = "Walk"
@@ -337,14 +349,34 @@ tracks/5/keys = {
 "values": [Vector3(0, 0, 0), Vector3(-1.13384, 0, 0), Vector3(0, 0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_3xa8e"]
+resource_name = "DoubleJump"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mesh:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4995),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(3.48787e-16, 3.48787e-16, 3.48787e-16), Vector3(-6.28319, 3.48787e-16, 3.48787e-16)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cs7kc"]
 _data = {
+"DoubleJump": SubResource("Animation_3xa8e"),
 "Fall": SubResource("Animation_n7gpr"),
 "Idle": SubResource("Animation_pcldr"),
 "Jump": SubResource("Animation_43rcw"),
 "RESET": SubResource("Animation_pnhmf"),
 "Walk": SubResource("Animation_vxyos")
 }
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_joo78"]
+animation = &"DoubleJump"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3t2kc"]
 animation = &"Fall"
@@ -415,18 +447,28 @@ advance_condition = &"walk"
 advance_mode = 2
 advance_condition = &"fall"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_cpuyp"]
+advance_mode = 2
+advance_condition = &"double_jump"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tllqp"]
+switch_mode = 2
+advance_mode = 2
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_d4j5b"]
+states/DoubleJump/node = SubResource("AnimationNodeAnimation_joo78")
+states/DoubleJump/position = Vector2(513.62, -73.803)
 states/End/position = Vector2(964.5, 99.3131)
 states/Fall/node = SubResource("AnimationNodeAnimation_3t2kc")
-states/Fall/position = Vector2(700.12, -62.9926)
+states/Fall/position = Vector2(736.12, 47.0074)
 states/Idle/node = SubResource("AnimationNodeAnimation_g6gg6")
-states/Idle/position = Vector2(448.562, 100.126)
+states/Idle/position = Vector2(484.562, 210.126)
 states/Jump/node = SubResource("AnimationNodeAnimation_bd6mn")
-states/Jump/position = Vector2(496.225, -63.7225)
-states/Start/position = Vector2(208, 98.5)
+states/Jump/position = Vector2(527.225, 47.5749)
+states/Start/position = Vector2(244, 208.5)
 states/Walk/node = SubResource("AnimationNodeAnimation_4fegx")
-states/Walk/position = Vector2(677.05, 99.625)
-transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_5ivau"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_j6at0"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_gb0jg"), "Idle", "Jump", SubResource("AnimationNodeStateMachineTransition_71nkx"), "Jump", "Idle", SubResource("AnimationNodeStateMachineTransition_5vvpe"), "Walk", "Jump", SubResource("AnimationNodeStateMachineTransition_f6ckr"), "Jump", "Walk", SubResource("AnimationNodeStateMachineTransition_olipm"), "Jump", "Fall", SubResource("AnimationNodeStateMachineTransition_fe0r7"), "Fall", "Jump", SubResource("AnimationNodeStateMachineTransition_dm8mh"), "Fall", "Idle", SubResource("AnimationNodeStateMachineTransition_n3aql"), "Idle", "Fall", SubResource("AnimationNodeStateMachineTransition_by6h8"), "Fall", "Walk", SubResource("AnimationNodeStateMachineTransition_hr6sd"), "Walk", "Fall", SubResource("AnimationNodeStateMachineTransition_yxm8g")]
+states/Walk/position = Vector2(713.05, 209.625)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_5ivau"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_j6at0"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_gb0jg"), "Idle", "Jump", SubResource("AnimationNodeStateMachineTransition_71nkx"), "Jump", "Idle", SubResource("AnimationNodeStateMachineTransition_5vvpe"), "Walk", "Jump", SubResource("AnimationNodeStateMachineTransition_f6ckr"), "Jump", "Walk", SubResource("AnimationNodeStateMachineTransition_olipm"), "Jump", "Fall", SubResource("AnimationNodeStateMachineTransition_fe0r7"), "Fall", "Jump", SubResource("AnimationNodeStateMachineTransition_dm8mh"), "Fall", "Idle", SubResource("AnimationNodeStateMachineTransition_n3aql"), "Idle", "Fall", SubResource("AnimationNodeStateMachineTransition_by6h8"), "Fall", "Walk", SubResource("AnimationNodeStateMachineTransition_hr6sd"), "Walk", "Fall", SubResource("AnimationNodeStateMachineTransition_yxm8g"), "Jump", "DoubleJump", SubResource("AnimationNodeStateMachineTransition_cpuyp"), "DoubleJump", "Fall", SubResource("AnimationNodeStateMachineTransition_tllqp")]
 graph_offset = Vector2(13.62, -144.803)
 
 [node name="Player" type="CharacterBody3D"]
@@ -462,6 +504,7 @@ margin = 0.5
 [node name="Camera3D" type="Camera3D" parent="CamOrigin/SpringArm3D"]
 
 [node name="Mesh" type="Node3D" parent="."]
+transform = Transform3D(1, -3.48787e-16, 3.48787e-16, 3.48787e-16, 1, 1.74846e-07, -3.48787e-16, -1.74846e-07, 1, 0, 0, 0)
 
 [node name="Body" type="MeshInstance3D" parent="Mesh"]
 mesh = SubResource("CapsuleMesh_0y156")
@@ -509,10 +552,14 @@ anim_player = NodePath("../AnimationPlayer")
 parameters/current_length = 2.0
 parameters/current_position = 0.369357
 parameters/current_delta = 0.00833333
+parameters/conditions/double_jump = false
 parameters/conditions/fall = false
 parameters/conditions/idle = false
 parameters/conditions/jump = false
 parameters/conditions/walk = false
+parameters/DoubleJump/current_length = null
+parameters/DoubleJump/current_position = null
+parameters/DoubleJump/current_delta = null
 parameters/End/current_length = null
 parameters/End/current_position = null
 parameters/End/current_delta = null
