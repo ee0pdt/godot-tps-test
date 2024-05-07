@@ -23,6 +23,10 @@ func physics_update(delta: float) -> void:
 	# Coyote time
 	elif Input.is_action_just_pressed("jump") and falling_time < COYOTE_TIME and player.jump_count < 1:
 		state_machine.transition_to("Jump")
+	elif player.jump_count > 1 and Input.is_action_just_pressed("jump") and player.jump_count < 2:
+		player.velocity.y += player.JUMP_VELOCITY
+		player.animation_tree["parameters/conditions/jump"] = true
+		player.jump_count += 1
 	else:
 		player.velocity.y -= player.gravity * delta
 		falling_time += delta

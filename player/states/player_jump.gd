@@ -17,6 +17,10 @@ func update(_delta: float) -> void:
 func physics_update(delta: float) -> void:
 	if player.is_on_floor() and player.velocity.y <= 0:
 		state_machine.transition_to("Idle")
+	elif Input.is_action_just_pressed("jump") and player.jump_count < 2:
+		player.velocity.y += player.JUMP_VELOCITY
+		player.animation_tree["parameters/conditions/jump"] = true
+		player.jump_count += 1
 	elif player.velocity.y <= 0:
 		state_machine.transition_to("Fall")
 	else:
