@@ -1,6 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://dv3kj7ex0vmm6"]
+[gd_scene load_steps=16 format=3 uid="uid://dv3kj7ex0vmm6"]
 
 [ext_resource type="PackedScene" uid="uid://cpdhk1p0ryx5a" path="res://player/player.tscn" id="1_ffgii"]
+[ext_resource type="Script" path="res://components/health.gd" id="2_bmi73"]
+[ext_resource type="Script" path="res://enemy.gd" id="2_mq4w8"]
+[ext_resource type="Script" path="res://components/hitbox.gd" id="3_xpvbv"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mbeen"]
 
@@ -33,6 +36,10 @@ height = 1.5
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_424v6"]
 radius = 0.2
 height = 0.5
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_j5vni"]
+radius = 0.344073
+height = 1.49961
 
 [node name="Node3D" type="Node3D"]
 
@@ -111,6 +118,10 @@ radius = 0.225207
 
 [node name="Enemy" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.9864, 2.2492, 0.0524206)
+script = ExtResource("2_mq4w8")
+
+[node name="Health" type="Node" parent="Enemy"]
+script = ExtResource("2_bmi73")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy"]
 shape = SubResource("CapsuleShape3D_btq7q")
@@ -124,3 +135,10 @@ skeleton = NodePath("../..")
 [node name="Eyes" type="MeshInstance3D" parent="Enemy/Mesh/Body"]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0.297836, -0.311791)
 mesh = SubResource("CapsuleMesh_424v6")
+
+[node name="Hitbox" type="Area3D" parent="Enemy" node_paths=PackedStringArray("health_component")]
+script = ExtResource("3_xpvbv")
+health_component = NodePath("../Health")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy/Hitbox"]
+shape = SubResource("CapsuleShape3D_j5vni")
