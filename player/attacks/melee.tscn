@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://6tde5tiktgm4"]
+
+[ext_resource type="Script" path="res://player/attacks/melee.gd" id="1_4bib0"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mucxp"]
+size = Vector3(0.243652, 0.083374, 0.73877)
+
+[node name="Melee" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0223615, 0, -0.85623)
+script = ExtResource("1_4bib0")
+attack_damage = 10.0
+knockback_force = 10.0
+stun_time = 1.0
+
+[node name="Hitbox" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.052722, -0.181824, 0.130615)
+shape = SubResource("BoxShape3D_mucxp")
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]

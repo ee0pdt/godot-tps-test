@@ -2,15 +2,17 @@ extends CharacterBody3D
 
 class_name Player
 
+@export var current_weapon : Weapon
+
 const SPEED = 5.0
 const AIR_SPEED = 2.0
 const JUMP_VELOCITY = 4.5
 const DOUBLE_JUMP_VELOCITY = 2.5
 const MOUSE_SENSITIVITY = 0.3  # Adjust this value to change mouse sensitivity
 
-@onready var pivot: Node3D = $CamOrigin
-@onready var camera: Camera3D = $CamOrigin/SpringArm3D/Camera3D
-@onready var animation_tree: AnimationTree = $AnimationTree
+@onready var pivot : Node3D = $CamOrigin
+@onready var camera : Camera3D = $CamOrigin/SpringArm3D/Camera3D
+@onready var animation_tree : AnimationTree = $AnimationTree
 
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.

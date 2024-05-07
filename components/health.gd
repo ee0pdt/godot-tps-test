@@ -2,8 +2,8 @@ extends Node
 
 class_name Health
 
-@export var MAX_HEALTH := 50
-@export var current_health := 50
+@export var MAX_HEALTH := 50.0
+@export var current_health := 50.0
 @export var health_bar : HealthBar
 
 var parent : Node
