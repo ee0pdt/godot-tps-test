@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://cpdhk1p0ryx5a"]
+[gd_scene load_steps=37 format=3 uid="uid://cpdhk1p0ryx5a"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_800hh"]
 [ext_resource type="Script" path="res://fsm/state_machine.gd" id="2_y5u12"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://player/states/player_walk.gd" id="4_te2lg"]
 [ext_resource type="Script" path="res://player/states/player_jump.gd" id="5_bnrwn"]
 [ext_resource type="Script" path="res://player/states/player_fall.gd" id="6_3fgvs"]
+[ext_resource type="AudioStream" uid="uid://dql0h6l1tiwnj" path="res://player/audio/jump.ogg" id="7_6rie8"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1gp7c"]
 radius = 0.326767
@@ -530,3 +531,8 @@ parameters/Start/current_delta = 0.0
 parameters/Walk/current_length = 0.6
 parameters/Walk/current_position = 0.0430365
 parameters/Walk/current_delta = 0.00833333
+
+[node name="SoundJump" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("7_6rie8")
+bus = &"SFX"

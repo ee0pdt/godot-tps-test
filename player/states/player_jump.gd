@@ -48,6 +48,7 @@ func physics_update(delta: float) -> void:
 # Called by the state machine upon changing the active state. The `msg` parameter
 # is a dictionary with arbitrary data the state can use to initialize itself.
 func enter(_msg := {}) -> void:
+	%SoundJump.play()
 	Debug.print_value("PlayerState", "Jump")
 	player = state_machine.get_parent()
 	player.velocity.y = player.JUMP_VELOCITY
