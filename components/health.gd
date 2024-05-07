@@ -6,9 +6,11 @@ class_name Health
 @export var current_health := 50
 @export var health_bar : HealthBar
 
+var parent : Node
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	parent = get_parent()
 
 
 func take_damage(attack: Attack) -> void:
@@ -20,4 +22,5 @@ func take_damage(attack: Attack) -> void:
 	Debug.print_value(get_parent().name+"Health", var_to_str(current_health))
 
 	if current_health <= 0:
-		get_parent().die()
+		if parent.has_method("die"):
+			parent.die()
