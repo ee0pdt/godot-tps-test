@@ -1,0 +1,66 @@
+[gd_scene load_steps=12 format=3 uid="uid://bnavv6365yuh"]
+
+[ext_resource type="Script" path="res://enemy.gd" id="1_u6esw"]
+[ext_resource type="Script" path="res://components/health.gd" id="2_utnb2"]
+[ext_resource type="Script" path="res://components/hitbox.gd" id="3_dfatu"]
+[ext_resource type="PackedScene" uid="uid://bt2mr4c4elsd3" path="res://components/health_bar.tscn" id="3_wic1b"]
+[ext_resource type="Script" path="res://fsm/state_machine.gd" id="4_ebrs2"]
+[ext_resource type="Script" path="res://enemy/states/enemy_idle.gd" id="5_tn1nv"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_btq7q"]
+radius = 0.356021
+height = 1.5164
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k6sn4"]
+albedo_color = Color(1, 0.295121, 0.205388, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_8t8l8"]
+material = SubResource("StandardMaterial3D_k6sn4")
+radius = 0.35
+height = 1.5
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_424v6"]
+radius = 0.2
+height = 0.5
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_j5vni"]
+radius = 0.344073
+height = 1.49961
+
+[node name="Enemy" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.748119, 0)
+script = ExtResource("1_u6esw")
+
+[node name="HealthBar" parent="." instance=ExtResource("3_wic1b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.96217, 0)
+
+[node name="Health" type="Node" parent="." node_paths=PackedStringArray("health_bar")]
+script = ExtResource("2_utnb2")
+health_bar = NodePath("../HealthBar")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_btq7q")
+
+[node name="Mesh" type="Node3D" parent="."]
+
+[node name="Body" type="MeshInstance3D" parent="Mesh"]
+mesh = SubResource("CapsuleMesh_8t8l8")
+skeleton = NodePath("../..")
+
+[node name="Eyes" type="MeshInstance3D" parent="Mesh/Body"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0.297836, -0.311791)
+mesh = SubResource("CapsuleMesh_424v6")
+
+[node name="Hitbox" type="Area3D" parent="." node_paths=PackedStringArray("health_component")]
+script = ExtResource("3_dfatu")
+health_component = NodePath("../Health")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox"]
+shape = SubResource("CapsuleShape3D_j5vni")
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("4_ebrs2")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("5_tn1nv")
