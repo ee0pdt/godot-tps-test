@@ -18,13 +18,15 @@ func update(_delta: float) -> void:
 
 # Corresponds to the `_physics_process()` callback.
 func physics_update(delta: float) -> void:
+	# Land the jump
 	if player.is_on_floor():
 		state_machine.transition_to("Idle")
 	# Coyote time
 	elif Input.is_action_just_pressed("jump") and falling_time < COYOTE_TIME and player.jump_count < 1:
 		state_machine.transition_to("Jump")
+	# Double jump
 	elif player.jump_count > 1 and Input.is_action_just_pressed("jump") and player.jump_count < 2:
-		player.velocity.y += player.JUMP_VELOCITY
+		player.velocity.y += player.DOUBLE_JUMP_VELOCITY
 		player.animation_tree["parameters/conditions/jump"] = true
 		player.jump_count += 1
 	else:
@@ -35,6 +37,7 @@ func physics_update(delta: float) -> void:
 		var input_dir = Input.get_vector("left", "right", "forward", "backward")
 		var direction = (player.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 
+		# We allow for limited movement in air - the AIR_SPEED const is set lower to account for this
 		if direction:
 			player.velocity.x = direction.x * player.AIR_SPEED
 			player.velocity.z = direction.z * player.AIR_SPEED
@@ -51,9 +54,10 @@ func enter(_msg := {}) -> void:
 	Debug.print_value("PlayerState", "Fall")
 	player = state_machine.get_parent()
 	falling_time = 0.0
+	player.animation_tree["parameters/conditions/fall"] = true
 
 
 # Called by the state machine before changing the active state. Use this function
 # to clean up the state.
 func exit() -> void:
-	pass
+	player.animation_tree["parameters/conditions/fall"] = false

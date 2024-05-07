@@ -15,12 +15,15 @@ func update(_delta: float) -> void:
 
 # Corresponds to the `_physics_process()` callback.
 func physics_update(delta: float) -> void:
+	# Land the jump, we need to check velocity because we can _start_ the jump grounded
 	if player.is_on_floor() and player.velocity.y <= 0:
 		state_machine.transition_to("Idle")
+	# Double jump
 	elif Input.is_action_just_pressed("jump") and player.jump_count < 2:
-		player.velocity.y += player.JUMP_VELOCITY
+		player.velocity.y += player.DOUBLE_JUMP_VELOCITY
 		player.animation_tree["parameters/conditions/jump"] = true
 		player.jump_count += 1
+	# Leave jump state as we've started to fall
 	elif player.velocity.y <= 0:
 		state_machine.transition_to("Fall")
 	else:
@@ -31,6 +34,7 @@ func physics_update(delta: float) -> void:
 		var input_dir = Input.get_vector("left", "right", "forward", "backward")
 		var direction = (player.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 
+		# As with falling, we allow for some limited in-air movement
 		if direction:
 			player.velocity.x = direction.x * player.AIR_SPEED
 			player.velocity.z = direction.z * player.AIR_SPEED

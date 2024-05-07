@@ -5,6 +5,7 @@ class_name Player
 const SPEED = 5.0
 const AIR_SPEED = 2.0
 const JUMP_VELOCITY = 4.5
+const DOUBLE_JUMP_VELOCITY = 2.5
 const MOUSE_SENSITIVITY = 0.3  # Adjust this value to change mouse sensitivity
 
 @onready var pivot: Node3D = $CamOrigin
