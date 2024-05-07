@@ -29,6 +29,7 @@ func physics_update(delta: float) -> void:
 		player.velocity.y += player.DOUBLE_JUMP_VELOCITY
 		player.animation_tree["parameters/conditions/double_jump"] = true
 		player.jump_count += 1
+		%SoundDoubleJump.play()
 	else:
 		player.velocity.y -= player.gravity * delta
 		falling_time += delta
