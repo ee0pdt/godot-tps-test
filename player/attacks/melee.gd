@@ -13,4 +13,4 @@ func _on_hitbox_area_entered(area: Area3D) -> void:
 
 func strike() -> void:
 	print("strike")
-	pass
+	%AnimationPlayer.play("Strike")

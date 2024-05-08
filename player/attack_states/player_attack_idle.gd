@@ -4,7 +4,7 @@ var player : Player
 
 
 # Receives events from the `_unhandled_input()` callback.
-func handle_input(event: InputEvent) -> void:
+func handle_input(_event: InputEvent) -> void:
 	pass
 
 

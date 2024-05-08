@@ -25,10 +25,17 @@ func enter(_msg := {}) -> void:
 	player = state_machine.get_parent()
 	weapon = player.current_weapon
 	weapon.strike()
-	state_machine.transition_to("Idle")
+	
+	match weapon.name:
+		"Melee":
+			player.animation_tree["parameters/MeleeAmount/blend_amount"] = 1.0
+			await get_tree().create_timer(0.5).timeout
+			state_machine.transition_to("Idle")
 
 
 # Called by the state machine before changing the active state. Use this function
 # to clean up the state.
 func exit() -> void:
-	pass
+	match weapon.name:
+		"Melee":
+			player.animation_tree["parameters/MeleeAmount/blend_amount"] = 0.0

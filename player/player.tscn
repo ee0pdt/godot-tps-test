@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cpdhk1p0ryx5a"]
+[gd_scene load_steps=31 format=3 uid="uid://cpdhk1p0ryx5a"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_800hh"]
 [ext_resource type="Script" path="res://components/health.gd" id="2_rcgjn"]
@@ -372,22 +372,62 @@ tracks/5/keys = {
 "values": [Vector3(0, 0, 0), Vector3(-1.13384, 0, 0), Vector3(0, 0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_lakii"]
+resource_name = "Melee"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mesh/Body:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1665, 0.2997, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.115633, -3.52761e-17, 3.57506e-17), Vector3(-0.332014, 1.40403e-16, -1.40402e-16), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Mesh/Body:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.2997, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(5.08537e-17, 6.55651e-07, -0.145801), Vector3(0, 0, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cs7kc"]
 _data = {
 "DoubleJump": SubResource("Animation_3xa8e"),
 "Fall": SubResource("Animation_n7gpr"),
 "Idle": SubResource("Animation_pcldr"),
 "Jump": SubResource("Animation_43rcw"),
+"Melee": SubResource("Animation_lakii"),
 "RESET": SubResource("Animation_pnhmf"),
 "Walk": SubResource("Animation_vxyos")
 }
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kf5ba"]
+animation = &"Melee"
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_3vpbx"]
+filter_enabled = true
+filters = ["Mesh/Body:position", "Mesh/Body:rotation"]
+
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_jpn3e"]
-graph_offset = Vector2(-461.76, -27)
-nodes/AnimationNodeStateMachine/node = ExtResource("8_cbf6x")
-nodes/AnimationNodeStateMachine/position = Vector2(-60, 70)
-nodes/output/position = Vector2(500, 230)
-node_connections = [&"output", 0, &"AnimationNodeStateMachine"]
+graph_offset = Vector2(-350.4, 299.4)
+nodes/Melee/node = SubResource("AnimationNodeAnimation_kf5ba")
+nodes/Melee/position = Vector2(-25, 440.14)
+nodes/MeleeAmount/node = SubResource("AnimationNodeBlend2_3vpbx")
+nodes/MeleeAmount/position = Vector2(420, 150)
+nodes/MovementStateMachine/node = ExtResource("8_cbf6x")
+nodes/MovementStateMachine/position = Vector2(-90, 40)
+nodes/output/position = Vector2(740, 200)
+node_connections = [&"MeleeAmount", 0, &"MovementStateMachine", &"MeleeAmount", 1, &"Melee", &"output", 0, &"MeleeAmount"]
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("current_weapon")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.812197, 0)
@@ -429,6 +469,7 @@ margin = 0.5
 transform = Transform3D(1, -3.48789e-16, 3.48787e-16, 3.48787e-16, 1, 4.46638e-06, -3.48789e-16, -4.46638e-06, 1, 0, 0, 0)
 
 [node name="Body" type="MeshInstance3D" parent="Mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("CapsuleMesh_0y156")
 skeleton = NodePath("../../..")
 
@@ -474,35 +515,42 @@ anim_player = NodePath("../AnimationPlayer")
 parameters/current_length = 2.0
 parameters/current_position = 0.369357
 parameters/current_delta = 0.00833333
-parameters/AnimationNodeStateMachine/current_length = false
-parameters/AnimationNodeStateMachine/current_position = false
-parameters/AnimationNodeStateMachine/current_delta = false
-parameters/AnimationNodeStateMachine/conditions/double_jump = false
-parameters/AnimationNodeStateMachine/conditions/fall = false
-parameters/AnimationNodeStateMachine/conditions/idle = false
-parameters/AnimationNodeStateMachine/conditions/jump = false
-parameters/AnimationNodeStateMachine/conditions/walk = false
-parameters/AnimationNodeStateMachine/DoubleJump/current_length = null
-parameters/AnimationNodeStateMachine/DoubleJump/current_position = null
-parameters/AnimationNodeStateMachine/DoubleJump/current_delta = null
-parameters/AnimationNodeStateMachine/End/current_length = null
-parameters/AnimationNodeStateMachine/End/current_position = null
-parameters/AnimationNodeStateMachine/End/current_delta = null
-parameters/AnimationNodeStateMachine/Fall/current_length = null
-parameters/AnimationNodeStateMachine/Fall/current_position = null
-parameters/AnimationNodeStateMachine/Fall/current_delta = null
-parameters/AnimationNodeStateMachine/Idle/current_length = null
-parameters/AnimationNodeStateMachine/Idle/current_position = null
-parameters/AnimationNodeStateMachine/Idle/current_delta = null
-parameters/AnimationNodeStateMachine/Jump/current_length = null
-parameters/AnimationNodeStateMachine/Jump/current_position = null
-parameters/AnimationNodeStateMachine/Jump/current_delta = null
-parameters/AnimationNodeStateMachine/Start/current_length = null
-parameters/AnimationNodeStateMachine/Start/current_position = null
-parameters/AnimationNodeStateMachine/Start/current_delta = null
-parameters/AnimationNodeStateMachine/Walk/current_length = null
-parameters/AnimationNodeStateMachine/Walk/current_position = null
-parameters/AnimationNodeStateMachine/Walk/current_delta = null
+parameters/Melee/current_length = null
+parameters/Melee/current_position = null
+parameters/Melee/current_delta = null
+parameters/MeleeAmount/current_length = 0
+parameters/MeleeAmount/current_position = 0
+parameters/MeleeAmount/current_delta = 0
+parameters/MeleeAmount/blend_amount = 0.0
+parameters/MovementStateMachine/current_length = false
+parameters/MovementStateMachine/current_position = false
+parameters/MovementStateMachine/current_delta = false
+parameters/MovementStateMachine/conditions/double_jump = false
+parameters/MovementStateMachine/conditions/fall = false
+parameters/MovementStateMachine/conditions/idle = false
+parameters/MovementStateMachine/conditions/jump = false
+parameters/MovementStateMachine/conditions/walk = false
+parameters/MovementStateMachine/DoubleJump/current_length = null
+parameters/MovementStateMachine/DoubleJump/current_position = null
+parameters/MovementStateMachine/DoubleJump/current_delta = null
+parameters/MovementStateMachine/End/current_length = null
+parameters/MovementStateMachine/End/current_position = null
+parameters/MovementStateMachine/End/current_delta = null
+parameters/MovementStateMachine/Fall/current_length = null
+parameters/MovementStateMachine/Fall/current_position = null
+parameters/MovementStateMachine/Fall/current_delta = null
+parameters/MovementStateMachine/Idle/current_length = null
+parameters/MovementStateMachine/Idle/current_position = null
+parameters/MovementStateMachine/Idle/current_delta = null
+parameters/MovementStateMachine/Jump/current_length = null
+parameters/MovementStateMachine/Jump/current_position = null
+parameters/MovementStateMachine/Jump/current_delta = null
+parameters/MovementStateMachine/Start/current_length = null
+parameters/MovementStateMachine/Start/current_position = null
+parameters/MovementStateMachine/Start/current_delta = null
+parameters/MovementStateMachine/Walk/current_length = null
+parameters/MovementStateMachine/Walk/current_position = null
+parameters/MovementStateMachine/Walk/current_delta = null
 parameters/output/current_length = null
 parameters/output/current_position = null
 parameters/output/current_delta = null
@@ -518,6 +566,7 @@ stream = ExtResource("8_3ko4t")
 bus = &"SFX"
 
 [node name="Melee" parent="." instance=ExtResource("10_5nvi3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.162666)
 
 [node name="AttackStates" type="Node" parent="."]
 script = ExtResource("2_y5u12")

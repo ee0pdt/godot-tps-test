@@ -27,7 +27,7 @@ func physics_update(delta: float) -> void:
 	# Double jump
 	elif player.jump_count > 1 and Input.is_action_just_pressed("jump") and player.jump_count < 2:
 		player.velocity.y += player.DOUBLE_JUMP_VELOCITY
-		player.animation_tree["parameters/AnimationNodeStateMachine/conditions/double_jump"] = true
+		player.animation_tree["parameters/MovementStateMachine/conditions/double_jump"] = true
 		player.jump_count += 1
 		%SoundDoubleJump.play()
 	else:
@@ -55,10 +55,10 @@ func enter(_msg := {}) -> void:
 	Debug.print_value("PlayerState", "Fall")
 	player = state_machine.get_parent()
 	falling_time = 0.0
-	player.animation_tree["parameters/AnimationNodeStateMachine/conditions/fall"] = true
+	player.animation_tree["parameters/MovementStateMachine/conditions/fall"] = true
 
 
 # Called by the state machine before changing the active state. Use this function
 # to clean up the state.
 func exit() -> void:
-	player.animation_tree["parameters/AnimationNodeStateMachine/conditions/fall"] = false
+	player.animation_tree["parameters/MovementStateMachine/conditions/fall"] = false
