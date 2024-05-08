@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bt2mr4c4elsd3"]
 
-[ext_resource type="Script" path="res://components/health_bar.gd" id="1_tonfl"]
+[ext_resource type="Script" path="res://health_bar/health_bar.gd" id="1_tonfl"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ktfqw"]
 albedo_color = Color(0.257812, 0.257812, 0.257812, 1)

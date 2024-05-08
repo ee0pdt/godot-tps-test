@@ -1,9 +1,9 @@
 [gd_scene load_steps=12 format=3 uid="uid://bnavv6365yuh"]
 
-[ext_resource type="Script" path="res://enemy.gd" id="1_u6esw"]
+[ext_resource type="Script" path="res://enemy/enemy.gd" id="1_u6esw"]
 [ext_resource type="Script" path="res://components/health.gd" id="2_utnb2"]
 [ext_resource type="Script" path="res://components/hitbox.gd" id="3_dfatu"]
-[ext_resource type="PackedScene" uid="uid://bt2mr4c4elsd3" path="res://components/health_bar.tscn" id="3_wic1b"]
+[ext_resource type="PackedScene" uid="uid://bt2mr4c4elsd3" path="res://health_bar/health_bar.tscn" id="3_wic1b"]
 [ext_resource type="Script" path="res://fsm/state_machine.gd" id="4_ebrs2"]
 [ext_resource type="Script" path="res://enemy/states/enemy_idle.gd" id="5_tn1nv"]
 
