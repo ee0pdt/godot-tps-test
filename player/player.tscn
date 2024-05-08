@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://cpdhk1p0ryx5a"]
+[gd_scene load_steps=28 format=3 uid="uid://cpdhk1p0ryx5a"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_800hh"]
 [ext_resource type="Script" path="res://components/health.gd" id="2_rcgjn"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://player/movement_states/player_fall.gd" id="6_3fgvs"]
 [ext_resource type="AudioStream" uid="uid://dql0h6l1tiwnj" path="res://player/audio/jump.ogg" id="7_6rie8"]
 [ext_resource type="AudioStream" uid="uid://d2hg7ipnnl5fm" path="res://player/audio/double_jump.ogg" id="8_3ko4t"]
+[ext_resource type="AnimationNodeStateMachine" uid="uid://n754wf1mdaot" path="res://player/movement_animation_tree.tres" id="8_cbf6x"]
 [ext_resource type="PackedScene" uid="uid://6tde5tiktgm4" path="res://player/attacks/melee.tscn" id="10_5nvi3"]
 [ext_resource type="Script" path="res://player/attack_states/player_attack_idle.gd" id="11_hrxse"]
 [ext_resource type="Script" path="res://player/attack_states/strike.gd" id="12_71l5b"]
@@ -381,101 +382,12 @@ _data = {
 "Walk": SubResource("Animation_vxyos")
 }
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_joo78"]
-animation = &"DoubleJump"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3t2kc"]
-animation = &"Fall"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_g6gg6"]
-animation = &"Idle"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bd6mn"]
-animation = &"Jump"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4fegx"]
-animation = &"Walk"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5ivau"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_j6at0"]
-xfade_time = 0.1
-advance_mode = 2
-advance_condition = &"walk"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gb0jg"]
-xfade_time = 0.1
-advance_mode = 2
-advance_condition = &"idle"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_71nkx"]
-advance_mode = 2
-advance_condition = &"jump"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5vvpe"]
-xfade_time = 0.5
-advance_mode = 2
-advance_condition = &"idle"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_f6ckr"]
-advance_mode = 2
-advance_condition = &"jump"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_olipm"]
-xfade_time = 0.5
-advance_mode = 2
-advance_condition = &"walk"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fe0r7"]
-xfade_time = 0.2
-advance_mode = 2
-advance_condition = &"fall"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dm8mh"]
-advance_mode = 2
-advance_condition = &"jump"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_n3aql"]
-xfade_time = 0.2
-advance_mode = 2
-advance_condition = &"idle"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_by6h8"]
-advance_mode = 2
-advance_condition = &"fall"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hr6sd"]
-advance_mode = 2
-advance_condition = &"walk"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_yxm8g"]
-advance_mode = 2
-advance_condition = &"fall"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_cpuyp"]
-advance_mode = 2
-advance_condition = &"double_jump"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tllqp"]
-switch_mode = 2
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_d4j5b"]
-states/DoubleJump/node = SubResource("AnimationNodeAnimation_joo78")
-states/DoubleJump/position = Vector2(513.62, -73.803)
-states/End/position = Vector2(964.5, 99.3131)
-states/Fall/node = SubResource("AnimationNodeAnimation_3t2kc")
-states/Fall/position = Vector2(736.12, 47.0074)
-states/Idle/node = SubResource("AnimationNodeAnimation_g6gg6")
-states/Idle/position = Vector2(484.562, 210.126)
-states/Jump/node = SubResource("AnimationNodeAnimation_bd6mn")
-states/Jump/position = Vector2(527.225, 47.5749)
-states/Start/position = Vector2(244, 208.5)
-states/Walk/node = SubResource("AnimationNodeAnimation_4fegx")
-states/Walk/position = Vector2(713.05, 209.625)
-transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_5ivau"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_j6at0"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_gb0jg"), "Idle", "Jump", SubResource("AnimationNodeStateMachineTransition_71nkx"), "Jump", "Idle", SubResource("AnimationNodeStateMachineTransition_5vvpe"), "Walk", "Jump", SubResource("AnimationNodeStateMachineTransition_f6ckr"), "Jump", "Walk", SubResource("AnimationNodeStateMachineTransition_olipm"), "Jump", "Fall", SubResource("AnimationNodeStateMachineTransition_fe0r7"), "Fall", "Jump", SubResource("AnimationNodeStateMachineTransition_dm8mh"), "Fall", "Idle", SubResource("AnimationNodeStateMachineTransition_n3aql"), "Idle", "Fall", SubResource("AnimationNodeStateMachineTransition_by6h8"), "Fall", "Walk", SubResource("AnimationNodeStateMachineTransition_hr6sd"), "Walk", "Fall", SubResource("AnimationNodeStateMachineTransition_yxm8g"), "Jump", "DoubleJump", SubResource("AnimationNodeStateMachineTransition_cpuyp"), "DoubleJump", "Fall", SubResource("AnimationNodeStateMachineTransition_tllqp")]
-graph_offset = Vector2(13.62, -144.803)
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_jpn3e"]
+graph_offset = Vector2(-461.76, -27)
+nodes/AnimationNodeStateMachine/node = ExtResource("8_cbf6x")
+nodes/AnimationNodeStateMachine/position = Vector2(-60, 70)
+nodes/output/position = Vector2(500, 230)
+node_connections = [&"output", 0, &"AnimationNodeStateMachine"]
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("current_weapon")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.812197, 0)
@@ -557,37 +469,43 @@ libraries = {
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 active = false
-tree_root = SubResource("AnimationNodeStateMachine_d4j5b")
+tree_root = SubResource("AnimationNodeBlendTree_jpn3e")
 anim_player = NodePath("../AnimationPlayer")
 parameters/current_length = 2.0
 parameters/current_position = 0.369357
 parameters/current_delta = 0.00833333
-parameters/conditions/double_jump = false
-parameters/conditions/fall = false
-parameters/conditions/idle = false
-parameters/conditions/jump = false
-parameters/conditions/walk = false
-parameters/DoubleJump/current_length = null
-parameters/DoubleJump/current_position = null
-parameters/DoubleJump/current_delta = null
-parameters/End/current_length = null
-parameters/End/current_position = null
-parameters/End/current_delta = null
-parameters/Fall/current_length = 1.0
-parameters/Fall/current_position = 0.0
-parameters/Fall/current_delta = 0.0
-parameters/Idle/current_length = 2.0
-parameters/Idle/current_position = 0.369357
-parameters/Idle/current_delta = 0.00833333
-parameters/Jump/current_length = null
-parameters/Jump/current_position = null
-parameters/Jump/current_delta = null
-parameters/Start/current_length = 0.0
-parameters/Start/current_position = 0.0
-parameters/Start/current_delta = 0.0
-parameters/Walk/current_length = 0.6
-parameters/Walk/current_position = 0.0430365
-parameters/Walk/current_delta = 0.00833333
+parameters/AnimationNodeStateMachine/current_length = false
+parameters/AnimationNodeStateMachine/current_position = false
+parameters/AnimationNodeStateMachine/current_delta = false
+parameters/AnimationNodeStateMachine/conditions/double_jump = false
+parameters/AnimationNodeStateMachine/conditions/fall = false
+parameters/AnimationNodeStateMachine/conditions/idle = false
+parameters/AnimationNodeStateMachine/conditions/jump = false
+parameters/AnimationNodeStateMachine/conditions/walk = false
+parameters/AnimationNodeStateMachine/DoubleJump/current_length = null
+parameters/AnimationNodeStateMachine/DoubleJump/current_position = null
+parameters/AnimationNodeStateMachine/DoubleJump/current_delta = null
+parameters/AnimationNodeStateMachine/End/current_length = null
+parameters/AnimationNodeStateMachine/End/current_position = null
+parameters/AnimationNodeStateMachine/End/current_delta = null
+parameters/AnimationNodeStateMachine/Fall/current_length = null
+parameters/AnimationNodeStateMachine/Fall/current_position = null
+parameters/AnimationNodeStateMachine/Fall/current_delta = null
+parameters/AnimationNodeStateMachine/Idle/current_length = null
+parameters/AnimationNodeStateMachine/Idle/current_position = null
+parameters/AnimationNodeStateMachine/Idle/current_delta = null
+parameters/AnimationNodeStateMachine/Jump/current_length = null
+parameters/AnimationNodeStateMachine/Jump/current_position = null
+parameters/AnimationNodeStateMachine/Jump/current_delta = null
+parameters/AnimationNodeStateMachine/Start/current_length = null
+parameters/AnimationNodeStateMachine/Start/current_position = null
+parameters/AnimationNodeStateMachine/Start/current_delta = null
+parameters/AnimationNodeStateMachine/Walk/current_length = null
+parameters/AnimationNodeStateMachine/Walk/current_position = null
+parameters/AnimationNodeStateMachine/Walk/current_delta = null
+parameters/output/current_length = null
+parameters/output/current_position = null
+parameters/output/current_delta = null
 
 [node name="SoundJump" type="AudioStreamPlayer3D" parent="."]
 unique_name_in_owner = true

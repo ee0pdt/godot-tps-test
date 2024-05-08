@@ -47,11 +47,11 @@ func physics_update(_delta: float) -> void:
 func enter(_msg := {}) -> void:
 	Debug.print_value("PlayerState", "Walk")
 	player = state_machine.get_parent()
-	player.animation_tree["parameters/conditions/walk"] = true
+	player.animation_tree["parameters/AnimationNodeStateMachine/conditions/walk"] = true
 	player.jump_count = 0
 
 
 # Called by the state machine before changing the active state. Use this function
 # to clean up the state.
 func exit() -> void:
-	player.animation_tree["parameters/conditions/walk"] = false
+	player.animation_tree["parameters/AnimationNodeStateMachine/conditions/walk"] = false
