@@ -5,6 +5,9 @@ const COYOTE_TIME := 0.1
 var player : Player
 var falling_time = 0.0
 
+@onready var camera_base: Node3D = $"../../CameraBase"
+@onready var camera_pivot: Node3D = $"../../CameraBase/CameraPivot"
+
 
 # Receives events from the `_unhandled_input()` callback.
 func handle_input(_event: InputEvent) -> void:
@@ -36,7 +39,7 @@ func physics_update(delta: float) -> void:
 
 		# Get the input direction and handle the movement/deceleration.
 		var input_dir = Input.get_vector("left", "right", "forward", "backward")
-		var direction = (player.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+		var direction = (camera_base.global_transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 
 		# We allow for limited movement in air - the AIR_SPEED const is set lower to account for this
 		if direction:

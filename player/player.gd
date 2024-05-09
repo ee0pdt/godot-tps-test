@@ -10,6 +10,7 @@ const JUMP_VELOCITY = 4.5
 const DOUBLE_JUMP_VELOCITY = 2.5
 const MOUSE_SENSITIVITY = 0.3  # Adjust this value to change mouse sensitivity
 const VERTICAL_LIMIT = 80.0 # Maximum vertical rotation in degrees
+const TURN_SPEED = 0.1
 
 @onready var camera_base: Node3D = $CameraBase
 @onready var camera_pivot: Node3D = $CameraBase/CameraPivot
@@ -44,9 +45,8 @@ func rotate_to_camera(direction: Vector3) -> void:
 	## Calculate the desired rotation
 		var target_position = global_position + direction
 			
-		var rotation_speed = 0.1
 		var wtransform = global_transform.looking_at(target_position, Vector3.UP)
-		var wrotation = Quaternion(global_transform.basis).slerp(Quaternion(wtransform.basis), rotation_speed)
+		var wrotation = Quaternion(global_transform.basis).slerp(Quaternion(wtransform.basis), TURN_SPEED)
 
 		var old = rotation.y
 		global_transform = Transform3D(Basis(wrotation), global_transform.origin)
