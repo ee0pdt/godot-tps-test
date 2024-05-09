@@ -1,6 +1,8 @@
 extends State
 
 var player : Player
+@onready var camera_base: Node3D = $"../../CameraBase"
+@onready var camera_pivot: Node3D = $"../../CameraBase/CameraPivot"
 
 
 # Receives events from the `_unhandled_input()` callback.
@@ -33,7 +35,7 @@ func physics_update(delta: float) -> void:
 		# Get the input direction and handle the movement/deceleration.
 		# As good practice, you should replace UI actions with custom gameplay actions.
 		var input_dir = Input.get_vector("left", "right", "forward", "backward")
-		var direction = (player.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+		var direction = (camera_base.global_transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 
 		# As with falling, we allow for some limited in-air movement
 		if direction:
