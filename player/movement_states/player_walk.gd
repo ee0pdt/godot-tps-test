@@ -30,20 +30,7 @@ func physics_update(_delta: float) -> void:
 		if direction:
 			player.velocity.x = direction.x * player.SPEED
 			player.velocity.z = direction.z * player.SPEED
-			
-
-			## Calculate the desired rotation
-			var target_position = player.global_position + direction
-			
-			var rotation_speed = 0.1
-			var wtransform = player.global_transform.looking_at(target_position, Vector3.UP)
-			var wrotation = Quaternion(player.global_transform.basis).slerp(Quaternion(wtransform.basis), rotation_speed)
-
-			var old = player.rotation.y
-			#player.rotation.y = wrotation.y
-			player.global_transform = Transform3D(Basis(wrotation), player.global_transform.origin)
-			
-			camera_base.rotation.y += old - player.rotation.y
+			player.rotate_to_camera(direction)
 		else:
 			player.velocity.x = move_toward(player.velocity.x, 0, player.SPEED)
 			player.velocity.z = move_toward(player.velocity.z, 0, player.SPEED)

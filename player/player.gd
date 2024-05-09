@@ -38,3 +38,17 @@ func _input(event):
 # Helper function to get the camera's rotation
 func get_camera_rotation_basis() -> Basis:
 	return camera_pivot.global_transform.basis
+
+
+func rotate_to_camera(direction: Vector3) -> void:
+	## Calculate the desired rotation
+		var target_position = global_position + direction
+			
+		var rotation_speed = 0.1
+		var wtransform = global_transform.looking_at(target_position, Vector3.UP)
+		var wrotation = Quaternion(global_transform.basis).slerp(Quaternion(wtransform.basis), rotation_speed)
+
+		var old = rotation.y
+		global_transform = Transform3D(Basis(wrotation), global_transform.origin)
+		
+		camera_base.rotation.y += old - rotation.y

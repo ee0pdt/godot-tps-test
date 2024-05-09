@@ -41,6 +41,7 @@ func physics_update(delta: float) -> void:
 		if direction:
 			player.velocity.x = direction.x * player.AIR_SPEED
 			player.velocity.z = direction.z * player.AIR_SPEED
+			player.rotate_to_camera(direction)
 		else:
 			player.velocity.x = move_toward(player.velocity.x, 0, player.AIR_SPEED)
 			player.velocity.z = move_toward(player.velocity.z, 0, player.AIR_SPEED)
