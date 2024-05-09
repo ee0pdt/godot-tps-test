@@ -5,9 +5,6 @@ const COYOTE_TIME := 0.1
 var player : Player
 var falling_time = 0.0
 
-@onready var camera_base: Node3D = $"../../CameraBase"
-@onready var camera_pivot: Node3D = $"../../CameraBase/CameraPivot"
-
 
 # Receives events from the `_unhandled_input()` callback.
 func handle_input(_event: InputEvent) -> void:

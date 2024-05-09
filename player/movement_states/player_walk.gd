@@ -1,9 +1,6 @@
 extends State
 
 var player : Player
-@onready var camera_base: Node3D = $"../../CameraBase"
-@onready var camera_pivot: Node3D = $"../../CameraBase/CameraPivot"
-
 
 
 # Receives events from the `_unhandled_input()` callback.

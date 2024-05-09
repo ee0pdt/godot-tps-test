@@ -15,7 +15,6 @@ const TURN_SPEED = 0.1
 @onready var camera_base: Node3D = $CameraBase
 @onready var camera_pivot: Node3D = $CameraBase/CameraPivot
 
-@onready var camera : Camera3D = $CamOrigin/SpringArm3D/Camera3D
 @onready var animation_tree : AnimationTree = $AnimationTree
 
 
