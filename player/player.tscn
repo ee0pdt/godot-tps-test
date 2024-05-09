@@ -457,14 +457,6 @@ script = ExtResource("6_3fgvs")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.098711, 0)
 shape = SubResource("CapsuleShape3D_1gp7c")
 
-[node name="CamOrigin" type="Node3D" parent="."]
-
-[node name="SpringArm3D" type="SpringArm3D" parent="CamOrigin"]
-spring_length = 2.0
-margin = 0.5
-
-[node name="Camera3D" type="Camera3D" parent="CamOrigin/SpringArm3D"]
-
 [node name="Mesh" type="Node3D" parent="."]
 transform = Transform3D(1, -3.48789e-16, 3.48787e-16, 3.48787e-16, 1, 4.46638e-06, -3.48789e-16, -4.46638e-06, 1, 0, 0, 0)
 
@@ -587,3 +579,15 @@ script = ExtResource("12_71l5b")
 
 [node name="Guard" type="Node" parent="AttackStates"]
 script = ExtResource("13_50kn5")
+
+[node name="CameraBase" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.098711, 0)
+
+[node name="CameraPivot" type="Node3D" parent="CameraBase"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.098711, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CameraBase/CameraPivot"]
+spring_length = 2.0
+margin = 0.5
+
+[node name="Camera3D" type="Camera3D" parent="CameraBase/CameraPivot/SpringArm3D"]
