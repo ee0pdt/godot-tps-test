@@ -32,21 +32,7 @@ func physics_update(delta: float) -> void:
 	else:
 		player.velocity.y -= player.gravity * delta
 
-		# Get the input direction and handle the movement/deceleration.
-		# As good practice, you should replace UI actions with custom gameplay actions.
-		var input_dir = Input.get_vector("left", "right", "forward", "backward")
-		var direction = (camera_base.global_transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-
-		# As with falling, we allow for some limited in-air movement
-		if direction:
-			player.velocity.x = direction.x * player.AIR_SPEED
-			player.velocity.z = direction.z * player.AIR_SPEED
-			player.rotate_to_camera(direction)
-		else:
-			player.velocity.x = move_toward(player.velocity.x, 0, player.AIR_SPEED)
-			player.velocity.z = move_toward(player.velocity.z, 0, player.AIR_SPEED)
-
-		player.move_and_slide()
+		player.process_movement(player.AIR_SPEED)
 
 
 # Called by the state machine upon changing the active state. The `msg` parameter

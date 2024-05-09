@@ -23,9 +23,9 @@ func physics_update(_delta: float) -> void:
 	elif Input.is_action_just_pressed("jump") and player.is_on_floor():
 		state_machine.transition_to("Jump")
 	else:
-		var velocity = player.process_movement(player.SPEED)
+		player.process_movement(player.SPEED)
 		
-		if velocity.length() < 1.0:
+		if player.velocity.length() < 1.0:
 			state_machine.transition_to("Idle")
 
 

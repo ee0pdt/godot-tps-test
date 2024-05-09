@@ -57,7 +57,7 @@ func rotate_to_camera(direction: Vector3) -> void:
 		camera_base.rotation.y += old - rotation.y
 
 
-func process_movement(speed: float) -> Vector3:
+func process_movement(speed: float) -> void:
 	# Get the input direction relative to the camera orientation
 	var input_dir = Input.get_vector("left", "right", "forward", "backward")
 	var direction = (camera_base.global_transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
@@ -71,5 +71,3 @@ func process_movement(speed: float) -> Vector3:
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	move_and_slide()
-	
-	return velocity

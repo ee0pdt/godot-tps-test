@@ -23,12 +23,10 @@ func physics_update(_delta: float) -> void:
 		state_machine.transition_to("Jump")
 
 	else:
-		var velocity = player.process_movement(player.SPEED)
+		player.process_movement(player.SPEED)
 
 		if player.velocity.length() > 0.0:
 			state_machine.transition_to("Walk")
-
-		player.move_and_slide()
 
 
 # Called by the state machine upon changing the active state. The `msg` parameter
