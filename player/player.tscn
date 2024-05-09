@@ -184,6 +184,34 @@ tracks/3/keys = {
 "values": [Vector3(3.48787e-16, 3.48787e-16, 3.48787e-16), Vector3(1.08099, 7.41378e-16, 1.003e-15)]
 }
 
+[sub_resource type="Animation" id="Animation_lakii"]
+resource_name = "Melee"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mesh/Body:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1665, 0.2997, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.115633, -3.52761e-17, 3.57506e-17), Vector3(-0.332014, 1.40403e-16, -1.40402e-16), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Mesh/Body:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.2997, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(5.08537e-17, 6.55651e-07, -0.145801), Vector3(0, 0, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_pnhmf"]
 length = 0.001
 tracks/0/type = "value"
@@ -372,34 +400,6 @@ tracks/5/keys = {
 "values": [Vector3(0, 0, 0), Vector3(-1.13384, 0, 0), Vector3(0, 0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_lakii"]
-resource_name = "Melee"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Mesh/Body:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1665, 0.2997, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0.115633, -3.52761e-17, 3.57506e-17), Vector3(-0.332014, 1.40403e-16, -1.40402e-16), Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Mesh/Body:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.166667, 0.2997, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(5.08537e-17, 6.55651e-07, -0.145801), Vector3(0, 0, 0)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cs7kc"]
 _data = {
 "DoubleJump": SubResource("Animation_3xa8e"),
@@ -469,7 +469,6 @@ margin = 0.5
 transform = Transform3D(1, -3.48789e-16, 3.48787e-16, 3.48787e-16, 1, 4.46638e-06, -3.48789e-16, -4.46638e-06, 1, 0, 0, 0)
 
 [node name="Body" type="MeshInstance3D" parent="Mesh"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("CapsuleMesh_0y156")
 skeleton = NodePath("../../..")
 
