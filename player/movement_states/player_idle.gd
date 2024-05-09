@@ -23,18 +23,7 @@ func physics_update(_delta: float) -> void:
 		state_machine.transition_to("Jump")
 
 	else:
-		# Get the input direction and handle the movement/deceleration.
-		# As good practice, you should replace UI actions with custom gameplay actions.
-		var input_dir = Input.get_vector("left", "right", "forward", "backward")
-		var direction = (player.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-
-		if direction:
-			player.velocity.x = direction.x * player.SPEED
-			player.velocity.z = direction.z * player.SPEED
-			player.rotate_to_camera(direction)
-		else:
-			player.velocity.x = move_toward(player.velocity.x, 0, player.SPEED)
-			player.velocity.z = move_toward(player.velocity.z, 0, player.SPEED)
+		var velocity = player.process_movement(player.SPEED)
 
 		if player.velocity.length() > 0.0:
 			state_machine.transition_to("Walk")

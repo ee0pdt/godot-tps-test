@@ -24,9 +24,11 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 var jump_count := 0
 
+
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	animation_tree.active = true
+
 
 func _input(event):
 	if event is InputEventMouseMotion:
@@ -35,6 +37,7 @@ func _input(event):
 		
 		# Vertical rotation with limits
 		camera_pivot.rotation.x = max(min(camera_pivot.rotation.x - deg_to_rad(event.relative.y * MOUSE_SENSITIVITY), deg_to_rad(VERTICAL_LIMIT)), -deg_to_rad(VERTICAL_LIMIT))
+
 
 # Helper function to get the camera's rotation
 func get_camera_rotation_basis() -> Basis:
@@ -52,3 +55,21 @@ func rotate_to_camera(direction: Vector3) -> void:
 		global_transform = Transform3D(Basis(wrotation), global_transform.origin)
 		
 		camera_base.rotation.y += old - rotation.y
+
+
+func process_movement(speed: float) -> Vector3:
+	# Get the input direction relative to the camera orientation
+	var input_dir = Input.get_vector("left", "right", "forward", "backward")
+	var direction = (camera_base.global_transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+
+	if direction:
+		velocity.x = direction.x * SPEED
+		velocity.z = direction.z * SPEED
+		rotate_to_camera(direction)
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+		velocity.z = move_toward(velocity.z, 0, SPEED)
+
+	move_and_slide()
+	
+	return velocity
