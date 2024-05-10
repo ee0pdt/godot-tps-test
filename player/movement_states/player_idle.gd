@@ -14,7 +14,7 @@ func update(_delta: float) -> void:
 
 
 # Corresponds to the `_physics_process()` callback.
-func physics_update(_delta: float) -> void:
+func physics_update(delta: float) -> void:
 	if not player.is_on_floor():
 		state_machine.transition_to("Fall")
 
@@ -27,6 +27,8 @@ func physics_update(_delta: float) -> void:
 
 		if player.velocity.length() > 0.0:
 			state_machine.transition_to("Walk")
+		else:
+			slowly_rotate(delta)
 
 
 # Called by the state machine upon changing the active state. The `msg` parameter
@@ -42,3 +44,11 @@ func enter(_msg := {}) -> void:
 # to clean up the state.
 func exit() -> void:
 	player.animation_tree["parameters/MovementStateMachine/conditions/idle"] = false
+
+
+func slowly_rotate(delta) -> void:
+	var player_rotation = player.rotation
+	var camera_base : Node3D = player.camera_base
+	if player.camera_base:
+		player.camera_base.rotation.y = lerp_angle(player.camera_base.rotation.y, 0, delta * 0.1)
+	
