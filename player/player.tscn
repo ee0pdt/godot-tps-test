@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://cpdhk1p0ryx5a"]
+[gd_scene load_steps=32 format=3 uid="uid://cpdhk1p0ryx5a"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_800hh"]
 [ext_resource type="Script" path="res://components/health.gd" id="2_rcgjn"]
@@ -186,7 +186,7 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id="Animation_lakii"]
 resource_name = "Melee"
-loop_mode = 1
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -194,7 +194,7 @@ tracks/0/path = NodePath("Mesh/Body:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1665, 0.2997, 1),
+"times": PackedFloat32Array(0, 0.1665, 0.2997, 0.4995),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(0.115633, -3.52761e-17, 3.57506e-17), Vector3(-0.332014, 1.40403e-16, -1.40402e-16), Vector3(0, 0, 0)]
@@ -206,7 +206,7 @@ tracks/1/path = NodePath("Mesh/Body:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.166667, 0.2997, 1),
+"times": PackedFloat32Array(0, 0.166667, 0.2997, 0.4995),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(5.08537e-17, 6.55651e-07, -0.145801), Vector3(0, 0, 0)]
@@ -418,16 +418,20 @@ animation = &"Melee"
 filter_enabled = true
 filters = ["Mesh/Body:position", "Mesh/Body:rotation"]
 
+[sub_resource type="AnimationNodeTimeSeek" id="AnimationNodeTimeSeek_yw7um"]
+
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_jpn3e"]
-graph_offset = Vector2(-350.4, 299.4)
+graph_offset = Vector2(-152.64, 68.8001)
 nodes/Melee/node = SubResource("AnimationNodeAnimation_kf5ba")
-nodes/Melee/position = Vector2(-25, 440.14)
+nodes/Melee/position = Vector2(140, 330)
 nodes/MeleeAmount/node = SubResource("AnimationNodeBlend2_3vpbx")
-nodes/MeleeAmount/position = Vector2(420, 150)
+nodes/MeleeAmount/position = Vector2(490, 150)
+nodes/MeleeTimeSeek/node = SubResource("AnimationNodeTimeSeek_yw7um")
+nodes/MeleeTimeSeek/position = Vector2(290, 310)
 nodes/MovementStateMachine/node = ExtResource("8_cbf6x")
 nodes/MovementStateMachine/position = Vector2(-90, 40)
 nodes/output/position = Vector2(740, 200)
-node_connections = [&"MeleeAmount", 0, &"MovementStateMachine", &"MeleeAmount", 1, &"Melee", &"output", 0, &"MeleeAmount"]
+node_connections = [&"MeleeAmount", 0, &"MovementStateMachine", &"MeleeAmount", 1, &"MeleeTimeSeek", &"MeleeTimeSeek", 0, &"Melee", &"output", 0, &"MeleeAmount"]
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("current_weapon")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.812197, 0)
@@ -511,19 +515,23 @@ libraries = {
 active = false
 tree_root = SubResource("AnimationNodeBlendTree_jpn3e")
 anim_player = NodePath("../AnimationPlayer")
-parameters/current_length = 2.0
-parameters/current_position = 0.369357
-parameters/current_delta = 0.00833333
-parameters/Melee/current_length = null
-parameters/Melee/current_position = null
-parameters/Melee/current_delta = null
-parameters/MeleeAmount/current_length = 0
-parameters/MeleeAmount/current_position = 0
-parameters/MeleeAmount/current_delta = 0
+parameters/current_length = 1.0
+parameters/current_position = 1.0
+parameters/current_delta = 0.0
+parameters/Melee/current_length = 1.0
+parameters/Melee/current_position = 1.0
+parameters/Melee/current_delta = 0.0
+parameters/MeleeAmount/current_length = 1.0
+parameters/MeleeAmount/current_position = 1.0
+parameters/MeleeAmount/current_delta = 0.0
 parameters/MeleeAmount/blend_amount = 0.0
-parameters/MovementStateMachine/current_length = false
-parameters/MovementStateMachine/current_position = false
-parameters/MovementStateMachine/current_delta = false
+parameters/MeleeTimeSeek/current_length = 1.0
+parameters/MeleeTimeSeek/current_position = 1.0
+parameters/MeleeTimeSeek/current_delta = 0.0
+parameters/MeleeTimeSeek/seek_request = -1.0
+parameters/MovementStateMachine/current_length = 0.6
+parameters/MovementStateMachine/current_position = 0.203684
+parameters/MovementStateMachine/current_delta = 0.00833333
 parameters/MovementStateMachine/conditions/double_jump = false
 parameters/MovementStateMachine/conditions/fall = false
 parameters/MovementStateMachine/conditions/idle = false
@@ -535,24 +543,24 @@ parameters/MovementStateMachine/DoubleJump/current_delta = null
 parameters/MovementStateMachine/End/current_length = null
 parameters/MovementStateMachine/End/current_position = null
 parameters/MovementStateMachine/End/current_delta = null
-parameters/MovementStateMachine/Fall/current_length = null
-parameters/MovementStateMachine/Fall/current_position = null
-parameters/MovementStateMachine/Fall/current_delta = null
-parameters/MovementStateMachine/Idle/current_length = null
-parameters/MovementStateMachine/Idle/current_position = null
-parameters/MovementStateMachine/Idle/current_delta = null
-parameters/MovementStateMachine/Jump/current_length = null
-parameters/MovementStateMachine/Jump/current_position = null
-parameters/MovementStateMachine/Jump/current_delta = null
-parameters/MovementStateMachine/Start/current_length = null
-parameters/MovementStateMachine/Start/current_position = null
-parameters/MovementStateMachine/Start/current_delta = null
-parameters/MovementStateMachine/Walk/current_length = null
-parameters/MovementStateMachine/Walk/current_position = null
-parameters/MovementStateMachine/Walk/current_delta = null
-parameters/output/current_length = null
-parameters/output/current_position = null
-parameters/output/current_delta = null
+parameters/MovementStateMachine/Fall/current_length = 0.3
+parameters/MovementStateMachine/Fall/current_position = 0.3
+parameters/MovementStateMachine/Fall/current_delta = 0.0
+parameters/MovementStateMachine/Idle/current_length = 2.0
+parameters/MovementStateMachine/Idle/current_position = 0.15
+parameters/MovementStateMachine/Idle/current_delta = 0.00833333
+parameters/MovementStateMachine/Jump/current_length = 0.3
+parameters/MovementStateMachine/Jump/current_position = 0.3
+parameters/MovementStateMachine/Jump/current_delta = 0.0
+parameters/MovementStateMachine/Start/current_length = 0.0
+parameters/MovementStateMachine/Start/current_position = 0.0
+parameters/MovementStateMachine/Start/current_delta = 0.0
+parameters/MovementStateMachine/Walk/current_length = 0.6
+parameters/MovementStateMachine/Walk/current_position = 0.203684
+parameters/MovementStateMachine/Walk/current_delta = 0.00833333
+parameters/output/current_length = 1.0
+parameters/output/current_position = 1.0
+parameters/output/current_delta = 0.0
 
 [node name="SoundJump" type="AudioStreamPlayer3D" parent="."]
 unique_name_in_owner = true

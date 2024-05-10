@@ -29,6 +29,8 @@ func enter(_msg := {}) -> void:
 	match weapon.name:
 		"Melee":
 			player.animation_tree["parameters/MeleeAmount/blend_amount"] = 1.0
+			player.animation_tree["parameters/MeleeTimeSeek/seek_request"] = 0.0
+			#player.get_node("AnimationPlayer").play("Melee")
 			await get_tree().create_timer(0.5).timeout
 			state_machine.transition_to("Idle")
 
