@@ -1,7 +1,9 @@
 extends State
 
 var player : Player
+var time_in_state := 0.0
 
+const TIME_TO_CAMERA_ROTATE := 3.0
 
 # Receives events from the `_unhandled_input()` callback.
 func handle_input(_event: InputEvent) -> void:
@@ -9,8 +11,8 @@ func handle_input(_event: InputEvent) -> void:
 
 
 # Corresponds to the `_process()` callback.
-func update(_delta: float) -> void:
-	pass
+func update(delta: float) -> void:
+	time_in_state += delta
 
 
 # Corresponds to the `_physics_process()` callback.
@@ -27,13 +29,14 @@ func physics_update(delta: float) -> void:
 
 		if player.velocity.length() > 0.0:
 			state_machine.transition_to("Walk")
-		else:
+		elif time_in_state > TIME_TO_CAMERA_ROTATE:
 			slowly_rotate(delta)
 
 
 # Called by the state machine upon changing the active state. The `msg` parameter
 # is a dictionary with arbitrary data the state can use to initialize itself.
 func enter(_msg := {}) -> void:
+	time_in_state = 0.0
 	Debug.print_value("PlayerState", "Idle")
 	player = state_machine.get_parent()
 	player.animation_tree["parameters/MovementStateMachine/conditions/idle"] = true
