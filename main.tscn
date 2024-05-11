@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://dv3kj7ex0vmm6"]
+[gd_scene load_steps=13 format=3 uid="uid://dv3kj7ex0vmm6"]
 
 [ext_resource type="PackedScene" uid="uid://cpdhk1p0ryx5a" path="res://player/player.tscn" id="1_ffgii"]
 [ext_resource type="PackedScene" uid="uid://bnavv6365yuh" path="res://enemy/enemy.tscn" id="2_u6u86"]
 [ext_resource type="Script" path="res://components/carryable.gd" id="3_l2tyv"]
+[ext_resource type="PackedScene" uid="uid://d26nlrf11add3" path="res://wheelchair_house/wheelchair_house.tscn" id="4_4wv8d"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mbeen"]
 
@@ -29,7 +30,7 @@ size = Vector3(0.5, 0.5, 0.5)
 [node name="Node3D" type="Node3D"]
 
 [node name="Player" parent="." node_paths=PackedStringArray("current_weapon") instance=ExtResource("1_ffgii")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5232, 1.9129, 11.8265)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.88798, 1.9129, -5.30226)
 current_weapon = NodePath("Melee")
 
 [node name="Ground" type="MeshInstance3D" parent="."]
@@ -329,3 +330,6 @@ size = Vector3(1.84073, 0.25127, 11.9961)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.98786, 0.149871, 11.4887)
 use_collision = true
 size = Vector3(9.4233, 0.25127, 11.9961)
+
+[node name="WheelchairHouse" parent="." instance=ExtResource("4_4wv8d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.45266, 0, -7.9137)
