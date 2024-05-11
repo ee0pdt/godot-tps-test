@@ -21,8 +21,8 @@ func physics_update(delta: float) -> void:
 		state_machine.transition_to("Fall")
 
 	# Handle Jump.
-	elif Input.is_action_just_pressed("jump") and player.is_on_floor():
-		state_machine.transition_to("Jump")
+	#elif Input.is_action_just_pressed("jump") and player.is_on_floor():
+		#state_machine.transition_to("Jump")
 
 	else:
 		player.process_movement(player.SPEED)

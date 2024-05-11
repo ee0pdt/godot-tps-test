@@ -148,6 +148,34 @@ shape = SubResource("BoxShape3D_phrk6")
 [node name="Carryable" type="Node" parent="Crate4"]
 script = ExtResource("3_l2tyv")
 
+[node name="Crate5" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.02767, 1.99452, -10.0775)
+mass = 30.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Crate5"]
+mesh = SubResource("BoxMesh_ef7v5")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Crate5"]
+shape = SubResource("BoxShape3D_phrk6")
+
+[node name="Carryable" type="Node" parent="Crate5"]
+script = ExtResource("3_l2tyv")
+
+[node name="Crate6" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.24857, 1.99452, -11.852)
+mass = 30.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Crate6"]
+mesh = SubResource("BoxMesh_ef7v5")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Crate6"]
+shape = SubResource("BoxShape3D_phrk6")
+
+[node name="Carryable" type="Node" parent="Crate6"]
+script = ExtResource("3_l2tyv")
+
 [node name="Crate2" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.66104, -1.60972)
 mass = 30.0

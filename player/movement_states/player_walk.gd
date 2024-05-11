@@ -17,8 +17,8 @@ func update(_delta: float) -> void:
 func physics_update(_delta: float) -> void:
 	if not player.is_on_floor():
 		state_machine.transition_to("Fall")
-	elif Input.is_action_just_pressed("jump") and player.is_on_floor():
-		state_machine.transition_to("Jump")
+	#elif Input.is_action_just_pressed("jump") and player.is_on_floor():
+		#state_machine.transition_to("Jump")
 	else:
 		player.process_movement(player.SPEED)
 		
