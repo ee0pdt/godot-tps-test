@@ -47,6 +47,7 @@ func _input(event):
 		if carried_object:
 			carried_object.freeze = false
 			carried_object = null
+			carried_object.collision_mask = 1
 		elif high_carry_ray.get_collider():
 			_check_carryable(high_carry_ray.get_collider())
 		elif low_carry_ray.get_collider():
@@ -57,9 +58,9 @@ func _input(event):
 func _check_carryable(target: Node3D):
 	if target.is_in_group("carryable"):
 		carried_object = target
-		#carried_object.freeze_mode = RigidBody3D.FREEZE_MODE_KINEMATIC
+		carried_object.freeze_mode = RigidBody3D.FREEZE_MODE_STATIC
 		carried_object.freeze = true
-		#carried_object.collision_mask = 0
+		carried_object.collision_mask = 0
 
 
 func _physics_process(delta: float) -> void:
