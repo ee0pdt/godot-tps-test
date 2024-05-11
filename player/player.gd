@@ -70,3 +70,9 @@ func process_movement(speed: float) -> void:
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	move_and_slide()
+
+
+	var collision = get_last_slide_collision()
+	
+	if collision and collision.get_collider().is_in_group("pushable"):
+		pass
