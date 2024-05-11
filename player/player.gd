@@ -16,7 +16,8 @@ const TURN_SPEED = 0.1
 @onready var camera_base: Node3D = $CameraBase
 @onready var camera_pivot: Node3D = $CameraBase/CameraPivot
 @onready var animation_tree : AnimationTree = $AnimationTree
-@onready var carry_range: RayCast3D = $CarryRange
+@onready var low_carry_ray: RayCast3D = $LowCarryRay
+@onready var high_carry_ray: RayCast3D = $HighCarryRay
 @onready var carry_position: Node3D = $CarryPosition
 
 var carried_object : RigidBody3D
@@ -45,8 +46,13 @@ func _input(event):
 		if carried_object:
 			carried_object.freeze = false
 			carried_object = null
-		elif carry_range.get_collider():
-			carried_object = carry_range.get_collider()
+		elif high_carry_ray.get_collider():
+			carried_object = high_carry_ray.get_collider()
+			#carried_object.freeze_mode = RigidBody3D.FREEZE_MODE_KINEMATIC
+			carried_object.freeze = true
+			#carried_object.collision_mask = 0
+		elif low_carry_ray.get_collider():
+			carried_object = low_carry_ray.get_collider()
 			#carried_object.freeze_mode = RigidBody3D.FREEZE_MODE_KINEMATIC
 			carried_object.freeze = true
 			#carried_object.collision_mask = 0
