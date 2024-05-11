@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dv3kj7ex0vmm6"]
+[gd_scene load_steps=15 format=3 uid="uid://dv3kj7ex0vmm6"]
 
 [ext_resource type="PackedScene" uid="uid://cpdhk1p0ryx5a" path="res://player/player.tscn" id="1_ffgii"]
 [ext_resource type="PackedScene" uid="uid://bnavv6365yuh" path="res://enemy/enemy.tscn" id="2_u6u86"]
@@ -14,11 +14,26 @@ size = Vector2(1000, 1000)
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ik7sy"]
 data = PackedVector3Array(500, 0, 500, -500, 0, 500, 500, 0, -500, -500, 0, 500, -500, 0, -500, 500, 0, -500)
 
+[sub_resource type="Curve" id="Curve_7q0ey"]
+_data = [Vector2(0, 0), 0.0, 0.594473, 0, 1, Vector2(0.609865, 0.362548), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.63393, 0.0, 1, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_fm1p8"]
+curve = SubResource("Curve_7q0ey")
+
 [sub_resource type="Environment" id="Environment_f0shl"]
 ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
-ambient_light_energy = 0.2
+ambient_light_energy = 0.1
 tonemap_mode = 2
+fog_enabled = true
+fog_light_color = Color(0.314886, 0.313623, 0.326172, 1)
+fog_sun_scatter = 0.1
+fog_density = 0.4
+adjustment_brightness = 2.24
+adjustment_contrast = 3.16
+adjustment_saturation = 0.01
+adjustment_color_correction = SubResource("CurveTexture_fm1p8")
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_5aywl"]
 

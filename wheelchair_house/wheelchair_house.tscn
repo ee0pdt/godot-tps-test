@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://d26nlrf11add3"]
+[gd_scene load_steps=2 format=3 uid="uid://d26nlrf11add3"]
+
+[ext_resource type="PackedScene" uid="uid://cn56obvxmli6u" path="res://assets/low_poly_old_sofa_with_bake_normal.glb" id="1_gg0db"]
 
 [node name="WheelchairHouse" type="Node3D"]
 
@@ -229,3 +231,6 @@ size = Vector3(1.08885, 0.25127, 15.3638)
 transform = Transform3D(-4.36091e-08, 0.0683635, -0.99766, 2.98827e-09, 0.99766, 0.0683635, 1, 0, -4.37114e-08, 2.89675, 0.765529, 2.49171)
 use_collision = true
 size = Vector3(0.103505, 0.51626, 15.3638)
+
+[node name="Sketchfab_Scene" parent="Floor5" instance=ExtResource("1_gg0db")]
+transform = Transform3D(-4.36091e-08, 2.98827e-09, 1, 0.0683636, 0.997661, -1.22175e-16, -0.997661, 0.0683636, -4.37114e-08, -5.52036, 0.0454603, 4.0292)
