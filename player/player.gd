@@ -4,6 +4,7 @@ class_name Player
 
 @export var current_weapon : Weapon
 
+
 const SPEED = 5.0
 const AIR_SPEED = 2.0
 const JUMP_VELOCITY = 4.5
@@ -14,8 +15,11 @@ const TURN_SPEED = 0.1
 
 @onready var camera_base: Node3D = $CameraBase
 @onready var camera_pivot: Node3D = $CameraBase/CameraPivot
-
 @onready var animation_tree : AnimationTree = $AnimationTree
+@onready var carry_range: RayCast3D = $CarryRange
+@onready var carry_position: Node3D = $CarryPosition
+
+var carried_object : RigidBody3D
 
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -36,6 +40,21 @@ func _input(event):
 		
 		# Vertical rotation with limits
 		camera_pivot.rotation.x = max(min(camera_pivot.rotation.x - deg_to_rad(event.relative.y * MOUSE_SENSITIVITY), deg_to_rad(VERTICAL_LIMIT)), -deg_to_rad(VERTICAL_LIMIT))
+
+	if Input.is_action_just_pressed("interact"):
+		if carried_object:
+			carried_object.freeze = false
+			carried_object = null
+		elif carry_range.get_collider():
+			carried_object = carry_range.get_collider()
+			#carried_object.freeze_mode = RigidBody3D.FREEZE_MODE_KINEMATIC
+			carried_object.freeze = true
+			#carried_object.collision_mask = 0
+
+
+func _physics_process(delta: float) -> void:
+	if carried_object:
+		carried_object.global_transform.origin = carry_position.global_transform.origin
 
 
 # Helper function to get the camera's rotation
@@ -70,9 +89,3 @@ func process_movement(speed: float) -> void:
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	move_and_slide()
-
-
-	var collision = get_last_slide_collision()
-	
-	if collision and collision.get_collider().is_in_group("pushable"):
-		pass
