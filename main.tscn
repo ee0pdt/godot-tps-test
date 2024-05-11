@@ -15,6 +15,10 @@ size = Vector2(1000, 1000)
 data = PackedVector3Array(500, 0, 500, -500, 0, 500, 500, 0, -500, -500, 0, 500, -500, 0, -500, 500, 0, -500)
 
 [sub_resource type="Environment" id="Environment_f0shl"]
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.2
+tonemap_mode = 2
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_5aywl"]
 
@@ -30,7 +34,7 @@ size = Vector3(0.5, 0.5, 0.5)
 [node name="Node3D" type="Node3D"]
 
 [node name="Player" parent="." node_paths=PackedStringArray("current_weapon") instance=ExtResource("1_ffgii")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.88798, 1.9129, -5.30226)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5.99298, 1.9129, -5.87444)
 current_weapon = NodePath("Melee")
 
 [node name="Ground" type="MeshInstance3D" parent="."]
@@ -47,6 +51,7 @@ environment = SubResource("Environment_f0shl")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.831974, -0.462021, 0.307175, -3.42318e-09, 0.553654, 0.832747, -0.554815, 0.692824, -0.460625, -1.10664, 3.06056, 0)
 shadow_enabled = true
+shadow_opacity = 0.5
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.50983, 0.801138, 0)
