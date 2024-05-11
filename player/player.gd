@@ -46,8 +46,8 @@ func _input(event):
 		
 		if carried_object:
 			carried_object.freeze = false
-			carried_object = null
 			carried_object.collision_mask = 1
+			carried_object = null
 		elif high_carry_ray.get_collider():
 			_check_carryable(high_carry_ray.get_collider())
 		elif low_carry_ray.get_collider():

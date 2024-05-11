@@ -458,7 +458,7 @@ script = ExtResource("5_bnrwn")
 script = ExtResource("6_3fgvs")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.098711, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.098711, 0.16518)
 shape = SubResource("CapsuleShape3D_1gp7c")
 
 [node name="Mesh" type="Node3D" parent="."]
@@ -631,7 +631,7 @@ margin = 0.5
 fov = 90.0
 
 [node name="CarryPosition" type="Node3D" parent="."]
-transform = Transform3D(1, 0, -1.5246e-23, -1.5246e-23, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.807862)
+transform = Transform3D(1, 0, -1.5246e-23, -1.5246e-23, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.743076)
 
 [node name="LowCarryRay" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, -1.5246e-23, -1.5246e-23, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.470109, 0)
