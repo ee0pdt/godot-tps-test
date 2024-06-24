@@ -2,8 +2,7 @@ extends Node
 
 class_name Health
 
-@export var MAX_HEALTH := 50.0
-@export var current_health := 50.0
+@export var health : HealthResource
 @export var health_bar : HealthBar
 
 var parent : Node
@@ -14,13 +13,19 @@ func _ready() -> void:
 
 
 func take_damage(attack: Attack) -> void:
-	current_health -= attack.attack_damage
+	health.current_health -= attack.attack_damage
 	
 	if health_bar:
-		health_bar.update(current_health, MAX_HEALTH)
+		health_bar.update(health.current_health, health.max_health)
 	
-	Debug.print_value(get_parent().name+"Health", var_to_str(current_health))
+	Debug.print_value(get_parent().name+"Health", var_to_str(health.current_health))
 
-	if current_health <= 0:
+	if health.current_health <= 0:
 		if parent.has_method("die"):
 			parent.die()
+
+
+func heal(value: int) -> void:
+	health.current_health += value
+	if health.current_health > health.max_health:
+		health.current_health = health.max_health

@@ -1,11 +1,17 @@
-[gd_scene load_steps=12 format=3 uid="uid://bnavv6365yuh"]
+[gd_scene load_steps=14 format=3 uid="uid://bnavv6365yuh"]
 
 [ext_resource type="Script" path="res://enemy/enemy.gd" id="1_u6esw"]
 [ext_resource type="Script" path="res://components/health.gd" id="2_utnb2"]
 [ext_resource type="Script" path="res://components/hitbox.gd" id="3_dfatu"]
 [ext_resource type="PackedScene" uid="uid://bt2mr4c4elsd3" path="res://health_bar/health_bar.tscn" id="3_wic1b"]
+[ext_resource type="Script" path="res://resources/health_resource.gd" id="4_36i34"]
 [ext_resource type="Script" path="res://fsm/state_machine.gd" id="4_ebrs2"]
 [ext_resource type="Script" path="res://enemy/states/enemy_idle.gd" id="5_tn1nv"]
+
+[sub_resource type="Resource" id="Resource_mll4y"]
+script = ExtResource("4_36i34")
+max_health = 100
+current_health = 100
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_btq7q"]
 radius = 0.356021
@@ -36,6 +42,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.96217, 0)
 
 [node name="Health" type="Node" parent="." node_paths=PackedStringArray("health_bar")]
 script = ExtResource("2_utnb2")
+health = SubResource("Resource_mll4y")
 health_bar = NodePath("../HealthBar")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

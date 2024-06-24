@@ -8,4 +8,3 @@ class_name Hitbox
 func damage(attack: Attack) -> void:
 	if health_component:
 		health_component.take_damage(attack)
-
